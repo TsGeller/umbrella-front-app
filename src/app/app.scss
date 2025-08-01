@@ -1,0 +1,5 @@
+.charts-row {
+  display: flex;
+  gap: 20px; /* espace entre les pie-container */
+  flex-wrap: wrap; /* optionnel : permet le retour à la ligne si trop étroit */
+}

@@ -1,0 +1,24 @@
+<div class="list_container">
+    <h2>Stock List</h2>
+<p-table
+  [value]="products"
+  showGridlines
+  [tableStyle]="{ 'min-width': '40rem' }">
+  <ng-template #header>
+    <tr class="title">
+      <th><h3>Stock</h3></th>
+      <th><h3>Name</h3></th>
+      <th><h3>Quantity</h3></th>
+      <th><h3>Price</h3></th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-product>
+    <tr >
+      <td>{{ product.stockName }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.quantity }}</td>
+      <td>{{ product.price | currency:'USD' }}</td>
+    </tr>
+  </ng-template>
+</p-table>
+</div>
