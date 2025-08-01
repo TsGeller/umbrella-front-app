@@ -8,13 +8,13 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class PortfolioService {
-  private baseUrl = 'https://api.example.com'; // Remplace plus tard
+  private baseUrl = 'http://51.21.224.128:8000/'; // Remplace plus tard
 
   constructor(private http: HttpClient) {}
 
   // Exemple : obtenir l'état d'un portfolio
-  getPortfolio(id: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/portfolio/${id}`).pipe(
+  getPortfolio(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/portfolio_valuation/get_daily_portfolio_snapshot/?start_date=2025-01-01&end_date=2025-06-30`).pipe(
       map(data => data),
       catchError(error => {
         console.error('Erreur de récupération :', error);

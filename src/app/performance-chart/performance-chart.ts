@@ -1,40 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
+import { PortfolioService } from '../services/portfolio';
 
 @Component({
   selector: 'app-performance-chart',
+  standalone: true,
   imports: [ChartModule],
   templateUrl: './performance-chart.html',
-  styleUrl: './performance-chart.scss'
+  styleUrls: ['./performance-chart.scss'] // <-- ici au pluriel
 })
-export class PerformanceChart {
+export class PerformanceChart implements OnInit {
   chartData: any;
   chartOptions: any;
-  heightChart='300px';
+  heightChart = '300px';
+  portfolio: any;
 
-  constructor() {
-    // Labels : J-29 à aujourd'hui
-    const today = new Date();
-    const labels = Array.from({ length: 30 }, (_, i) => {
-      const d = new Date();
-      d.setDate(today.getDate() - 29 + i);
-      return `${d.getDate()}/${d.getMonth() + 1}`;
-    });
-
-    // Valeurs aléatoires entre 0 et 100
-const values = Array.from({ length: 30 }, () => Math.floor(Math.random() * 21) - 10);
-
-    this.chartData = {
-      labels: labels,
-      datasets: [
-        {
-          label: 'Performance in %',
-          data: values,
-          backgroundColor: '#42A5F5'
-        }
-      ]
-    };
-
+  constructor(private portfolioService: PortfolioService) {
+    // Configuration des options du graphique (fixe)
     this.chartOptions = {
       responsive: true,
       maintainAspectRatio: false,
@@ -51,15 +33,44 @@ const values = Array.from({ length: 30 }, () => Math.floor(Math.random() * 21) -
           grid: { color: 'rgba(255,255,255,0.2)' }
         },
         y: {
-          min: -10,
-          max: 10,  
           ticks: {
-            color: '#ffffff',
-            callback: (value: number) => value + '%'
+            color: '#ffffff'
           },
           grid: { color: 'rgba(255,255,255,0.2)' }
         }
       }
     };
   }
+
+  ngOnInit(): void {
+  this.portfolioService.getPortfolio().subscribe((response: any) => {
+    const data = response?.data;
+    if (!Array.isArray(data) || data.length === 0) {
+      console.error('Format ou contenu vide :', data);
+      return;
+    }
+
+    const labels = data.map(entry => {
+      const date = new Date(entry.date);
+      return `${date.getDate()}/${date.getMonth() + 1}`;
+    });
+
+    const values = data.map(entry => parseFloat(entry.nav_per_unit)).filter(v => !isNaN(v));
+
+    this.chartData = {
+      labels: labels,
+      datasets: [
+        {
+          label: 'NAV per Unit',
+          data: values,
+          borderColor: '#42A5F5',
+          backgroundColor: '#42A5F5',
+          fill: false,
+          tension: 0.3
+        }
+      ]
+    };
+  });
+}
+
 }

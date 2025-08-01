@@ -3,13 +3,13 @@ import { PortfolioService } from '../services/portfolio';
 
 @Component({
   selector: 'app-header',
-  standalone: true, // si tu es en standalone (Angular 17+)
+  standalone: true, 
   imports: [],
   templateUrl: './header.html',
   styleUrl: './header.scss'
 })
 export class Header implements OnInit {
-  portfolio: any; // 💡 tu stockes ici les données du portfolio, pas le service
+  portfolio: any;
 
   constructor(private portfolioService: PortfolioService) {}
 
