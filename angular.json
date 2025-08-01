@@ -39,7 +39,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "2MB"
+                  "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -58,9 +58,6 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "options": {
-            "proxyConfig": "proxy.conf.json"
-          },
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
@@ -98,5 +95,4 @@
       }
     }
   }
-  
 }
