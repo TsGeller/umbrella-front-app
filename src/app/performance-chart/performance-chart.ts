@@ -56,7 +56,7 @@ export class PerformanceChart implements OnInit {
     });
 
     const values = data.map(entry => parseFloat(entry.nav_per_unit)).filter(v => !isNaN(v));
-
+    console.log(data)
     this.chartData = {
       labels: labels,
       datasets: [

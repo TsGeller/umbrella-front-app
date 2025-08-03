@@ -19,7 +19,7 @@ export class Piechart {
         {
           data: [20, 30, 30, 10,10],
           backgroundColor: ['#42A5F5', '#66BB6A', '#FFA726','#022AA3', '#A21AB3'],
-          hoverBackgroundColor: ['#64B5F6', '#81C784', '#FFB74D']
+          hoverBackgroundColor: ['#64B5F6', '#81C784', '#FFB74D','#2a02a3','#ca21df']
         }
       ]
     };

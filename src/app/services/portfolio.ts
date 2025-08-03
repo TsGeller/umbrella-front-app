@@ -14,7 +14,7 @@ export class PortfolioService {
 
   // Exemple : obtenir l'état d'un portfolio
   getPortfolio(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/portfolio_valuation/get_daily_portfolio_snapshot/?start_date=2025-01-01&end_date=2025-06-30`).pipe(
+    return this.http.get(`${this.baseUrl}/portfolio_valuation/get_daily_portfolio_snapshot/?start_date=2025-06-20&end_date=2025-06-30`).pipe(
       map(data => data),
       catchError(error => {
         console.error('Erreur de récupération :', error);
