@@ -8,8 +8,7 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class PortfolioService {
-  private baseUrl = 'http://51.21.224.128:8000/';
-  //donne la date d'aujourdhui 
+  private baseUrl = 'http://51.21.224.128:8000';
 
   constructor(private http: HttpClient) {}
 
@@ -33,7 +32,7 @@ export class PortfolioService {
     );
   }
   getValueForUser(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/portfolio_valuation//user_snapshots/${id}/?start_date=${this.getDateMinusDays(180)}&end_date=${this.getDateMinusDays(1)}`).pipe(
+    return this.http.get(`${this.baseUrl}/portfolio_valuation/user_snapshots/${id}/?start_date=${this.getDateMinusDays(180)}&end_date=${this.getDateMinusDays(1)}`).pipe(
       map(data => data),
       catchError(error => {
         console.error('Erreur de récupération :', error);
