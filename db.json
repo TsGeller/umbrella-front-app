@@ -1,0 +1,32 @@
+{
+  "portfolio": [
+    {
+      "id": 1,
+      "stockName": "AAPL",
+      "name": "Apple Inc.",
+      "quantity": 50,
+      "price": 189.25
+    },
+    {
+      "id": 2,
+      "stockName": "GOOGL",
+      "name": "Alphabet Inc.",
+      "quantity": 10,
+      "price": 2801.12
+    },
+    {
+      "id": 3,
+      "stockName": "TSLA",
+      "name": "Tesla Inc.",
+      "quantity": 20,
+      "price": 720.50
+    },
+    {
+      "id": 4,
+      "stockName": "AMZN",
+      "name": "Amazon.com Inc.",
+      "quantity": 5,
+      "price": 3342.88
+    }
+  ]
+}

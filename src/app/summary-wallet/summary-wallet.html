@@ -1,10 +1,10 @@
 <div class="wallet-summary">
   <div class="wallet-card">
-    <div class="label">Total Value:</div>
-    <div class="value">{{ walletValue }} $</div>
+    <div class="label">Total Value</div>
+    <div class="value">{{ walletValue | number:'1.0-2' }}€</div>
   </div>
   <div class="wallet-card">
-    <div class="label">Total Invest:</div>
-    <div class="value">{{ totalInvest }} $</div>
+    <div class="label">Total Invest</div>
+    <div class="value">{{ totalInvest | number:'1.0-2' }} €</div>
   </div>
 </div>

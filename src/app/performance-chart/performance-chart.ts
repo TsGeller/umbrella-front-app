@@ -14,6 +14,8 @@ export class PerformanceChart implements OnInit {
   chartOptions: any;
   heightChart = '300px';
   portfolio: any;
+  valuea: number | undefined;
+  valueb: number | undefined;
 
   constructor(private portfolioService: PortfolioService) {
     // Configuration des options du graphique (fixe)
@@ -23,20 +25,20 @@ export class PerformanceChart implements OnInit {
       plugins: {
         legend: {
           labels: {
-            color: '#ffffff'
+            color: '#000000'
           }
         }
       },
       scales: {
         x: {
-          ticks: { color: '#ffffff' },
-          grid: { color: 'rgba(255,255,255,0.2)' }
+          ticks: { color: '#000000' },
+          grid: { color: 'rgba(0,0,0,0.2)' }
         },
         y: {
           ticks: {
-            color: '#ffffff'
+            color: '#000000'
           },
-          grid: { color: 'rgba(255,255,255,0.2)' }
+          grid: { color: 'rgba(0,0,0,0.2)' }
         }
       }
     };
@@ -64,7 +66,7 @@ export class PerformanceChart implements OnInit {
           label: 'NAV per Unit',
           data: values,
           borderColor: '#42A5F5',
-          backgroundColor: '#42A5F5',
+          backgroundColor: '#000000',
           fill: false,
           tension: 0.3
         }

@@ -8,20 +8,41 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class PortfolioService {
-  private baseUrl = 'http://51.21.224.128:8000/'; // Remplace plus tard
+  private baseUrl = 'http://51.21.224.128:8000/';
+  //donne la date d'aujourdhui 
 
   constructor(private http: HttpClient) {}
 
-  // Exemple : obtenir l'état d'un portfolio
+  private getDateMinusDays(days: number): string {
+  const date = new Date();
+  date.setDate(date.getDate() - days);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+}
   getPortfolio(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/portfolio_valuation/get_daily_portfolio_snapshot/?start_date=2025-06-20&end_date=2025-06-30`).pipe(
+    return this.http.get(`${this.baseUrl}/portfolio_valuation/get_daily_portfolio_snapshot/?start_date=${this.getDateMinusDays(180)}&end_date=${this.getDateMinusDays(1)}`).pipe(
       map(data => data),
       catchError(error => {
         console.error('Erreur de récupération :', error);
         return of(null); // ou renvoyer une valeur simulée
       })
     );
-  } 
+  }
+  getValueForUser(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/portfolio_valuation//user_snapshots/${id}/?start_date=${this.getDateMinusDays(180)}&end_date=${this.getDateMinusDays(1)}`).pipe(
+      map(data => data),
+      catchError(error => {
+        console.error('Erreur de récupération :', error);
+        return of(null); // ou renvoyer une valeur simulée
+      })
+    );
+  }
+
+
 
   // Exemple pour simuler en attendant l’API
   getMockPortfolio(id: string): Observable<any> {

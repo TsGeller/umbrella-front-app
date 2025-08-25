@@ -1,23 +1,25 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-stock-list',
-  imports: [TableModule,CurrencyPipe],
+  standalone: true,
+  imports: [TableModule, CurrencyPipe],
   templateUrl: './stock-list.html',
   styleUrl: './stock-list.scss'
 })
-export class StockList {
-  products = [
-  { stockName: 'Apple Inc. (AAPL)', name: 'Apple', quantity: 50, price: 195.30 },
-  { stockName: 'Microsoft Corp. (MSFT)', name: 'Microsoft', quantity: 30, price: 345.60 },
-  { stockName: 'Tesla Inc. (TSLA)', name: 'Tesla', quantity: 20, price: 710.00 },
-  { stockName: 'Amazon.com Inc. (AMZN)', name: 'Amazon', quantity: 10, price: 135.80 },
-  { stockName: 'Amazon.com Inc. (AMZN)', name: 'Amazon', quantity: 10, price: 135.80 },
-  { stockName: 'Amazon.com Inc. (AMZN)', name: 'Amazon', quantity: 10, price: 135.80 },
-  { stockName: 'Amazon.com Inc. (AMZN)', name: 'Amazon', quantity: 10, price: 135.80 },
-  { stockName: 'NVIDIA Corp. (NVDA)', name: 'NVIDIA', quantity: 15, price: 850.25 }
-];
+export class StockList implements OnInit {
+  products: any[] = [];
 
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    // put this in a service but for the moment its ok
+    this.http.get<any[]>('http://localhost:3000/portfolio')
+      .subscribe(data => {
+        this.products = data;
+      });
+  }
 }

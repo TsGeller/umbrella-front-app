@@ -28,7 +28,7 @@ export class Piechart {
       plugins: {
         legend: {
           labels: {
-            color: '#ffffff'
+            color: '#000000'
           }
         }
       }
