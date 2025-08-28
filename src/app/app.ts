@@ -7,10 +7,11 @@ import { ChartModule } from 'primeng/chart';
 import { Piechart } from './piechart/piechart';
 import { StockList } from "./stock-list/stock-list";
 import { TableModule } from 'primeng/table';
+import { OwnerPercentage } from "./owner-percentage/owner-percentage";
 
 @Component({
   selector: 'app-root',
-  imports: [Header, SummaryWallet, PerformanceChart, ChartModule, Piechart, StockList,TableModule],
+  imports: [Header, SummaryWallet, PerformanceChart, ChartModule, Piechart, StockList, TableModule, OwnerPercentage],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

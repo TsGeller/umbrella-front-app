@@ -36,7 +36,7 @@ export class PortfolioService {
       map(data => data),
       catchError(error => {
         console.error('Erreur de récupération :', error);
-        return of(null); // ou renvoyer une valeur simulée
+        return of(null);
       })
     );
   }

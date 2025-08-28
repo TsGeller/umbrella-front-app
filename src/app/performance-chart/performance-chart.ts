@@ -14,8 +14,6 @@ export class PerformanceChart implements OnInit {
   chartOptions: any;
   heightChart = '300px';
   portfolio: any;
-  valuea: number | undefined;
-  valueb: number | undefined;
 
   constructor(private portfolioService: PortfolioService) {
     // Configuration des options du graphique (fixe)
@@ -47,10 +45,10 @@ export class PerformanceChart implements OnInit {
   ngOnInit(): void {
   this.portfolioService.getPortfolio().subscribe((response: any) => {
     const data = response?.data;
-    if (!Array.isArray(data) || data.length === 0) {
-      console.error('Format ou contenu vide :', data);
-      return;
-    }
+      if (!Array.isArray(data) || data.length === 0) {
+        console.error('Format ou contenu vide :', data);
+        return;
+      }
 
     const labels = data.map(entry => {
       const date = new Date(entry.date);

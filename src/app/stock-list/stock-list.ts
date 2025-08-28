@@ -16,10 +16,6 @@ export class StockList implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    // put this in a service but for the moment its ok
-    this.http.get<any[]>('http://localhost:3000/portfolio')
-      .subscribe(data => {
-        this.products = data;
-      });
+    // put this in a service but for the moment its ok    
   }
 }
