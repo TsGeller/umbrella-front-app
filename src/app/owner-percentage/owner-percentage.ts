@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PortfolioService } from '../services/portfolio';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-owner-percentage',
   standalone: true,
-  imports: [],
+  imports: [DecimalPipe],
   templateUrl: './owner-percentage.html',
   styleUrl: './owner-percentage.scss'
 })
