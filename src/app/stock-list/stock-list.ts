@@ -2,6 +2,8 @@ import { CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
+import { PortfolioService } from '../services/portfolio';
+import { Stock } from '../models/stock.model';
 
 @Component({
   selector: 'app-stock-list',
@@ -11,11 +13,16 @@ import { TableModule } from 'primeng/table';
   styleUrl: './stock-list.scss'
 })
 export class StockList implements OnInit {
-  products: any[] = [];
-
-  constructor(private http: HttpClient) {}
+  stocks: Stock[] = [];
+  constructor(private service: PortfolioService) {}
 
   ngOnInit(): void {
-    // put this in a service but for the moment its ok    
+    // s'abonner au portfolio centralisé
+    this.service.portfolio$.subscribe(portfolio => {  
+      this.stocks = portfolio.getStcokComposition();
+    });
+
+    // charger les holdings via le service
+    this.service.loadStockHoldings();
   }
 }

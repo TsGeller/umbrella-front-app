@@ -1,14 +1,19 @@
 // services/portfolio.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { Portfolio } from '../models/portfolio.model';
+import { Stock } from '../models/stock.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PortfolioService {
   private baseUrl = 'http://51.21.224.128:8000';
+
+  private portfolioSubject = new BehaviorSubject<Portfolio>(new Portfolio());
+  portfolio$ = this.portfolioSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -40,6 +45,69 @@ export class PortfolioService {
       })
     );
   }
+  loadStockHoldings(): void {
+    this.http.get<any>(`${this.baseUrl}/portfolio_valuation/get_portfolio_stocks/`).pipe(
+      catchError(error => {
+        console.error('Erreur de récupération :', error);
+        return of(null);
+      })
+    ).subscribe(response => {
+      const data = response?.data || {};
+
+      // transformer les holdings en Stock[]
+      const holdings: Stock[] = Object.entries(data).map(([stockName, quantity]) => ({
+        stockName,
+        name: stockName,
+        quantity: Number(quantity),
+        ticker: stockName,
+        price: 0 // par défaut, à mettre à jour si dispo
+      }));
+
+      // mettre à jour le portfolio centralisé
+      const currentPortfolio = this.portfolioSubject.value;
+      currentPortfolio.setStockComposition(holdings);
+
+      // notifier tous les abonnés
+      this.portfolioSubject.next(currentPortfolio);
+      // Optionnel : charger les prix pour chaque ticker
+      holdings.forEach(stock => {
+        this.getPriceForTicker(stock.ticker);
+      });
+    });
+  }
+  getPriceForTicker(ticker: string): void {
+  this.http.get<any>(`${this.baseUrl}/stock_information/get_prices/${ticker}/?start_date=${this.getDateMinusDays(180)}&end_date=${this.getDateMinusDays(1)}`)
+    .pipe(
+      catchError(error => {
+        console.error('Erreur de récupération :', error);
+        return of(null);
+      })
+    )
+    .subscribe(response => {
+      if (!response || !response.data) {
+        console.error('Pas de données disponibles pour', ticker);
+        return;
+      }
+
+      // Récupérer la dernière donnée (la plus récente)
+      const lastEntry = response.data[response.data.length - 1];
+      const newPrice = parseFloat(lastEntry.close_euro);
+
+      // Mettre à jour le portfolio centralisé
+      const currentPortfolio = this.portfolioSubject.value;
+      const updated = currentPortfolio.updatePriceOfTicker(ticker, newPrice);
+
+      if (!updated) {
+        console.warn(`Le ticker ${ticker} n'existe pas dans le portfolio, mise à jour ignorée.`);
+        return;
+      }
+
+      // Notifier les abonnés uniquement si mise à jour réussie
+      this.portfolioSubject.next(currentPortfolio);
+    });
+}
+
+
 
 
 

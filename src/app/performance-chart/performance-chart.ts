@@ -7,7 +7,7 @@ import { PortfolioService } from '../services/portfolio';
   standalone: true,
   imports: [ChartModule],
   templateUrl: './performance-chart.html',
-  styleUrls: ['./performance-chart.scss'] // <-- ici au pluriel
+  styleUrls: ['./performance-chart.scss']
 })
 export class PerformanceChart implements OnInit {
   chartData: any;
@@ -56,7 +56,6 @@ export class PerformanceChart implements OnInit {
     });
 
     const values = data.map(entry => parseFloat(entry.nav_per_unit)).filter(v => !isNaN(v));
-    console.log(data)
     this.chartData = {
       labels: labels,
       datasets: [

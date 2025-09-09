@@ -15,7 +15,7 @@ export class OwnerPercentage implements OnInit  {
   constructor(private portfolioService: PortfolioService){} 
   ngOnInit(): void {
   this.portfolioService.getValueForUser(1).subscribe((response: any) => {
-    const data = response?.snapshots;
+    const data = response?.data;
 
     if (!Array.isArray(data) || data.length === 0) {
       console.error('Format ou contenu vide :', data);
@@ -24,10 +24,11 @@ export class OwnerPercentage implements OnInit  {
 
     // Dernier élément
     const lastSnapshot = data[data.length - 1];
+    console.log(lastSnapshot);
     this.value_antoine = lastSnapshot.value_held;
   });
   this.portfolioService.getValueForUser(2).subscribe((response: any) => {
-    const dataA = response?.snapshots;
+    const dataA = response?.data;
 
     if (!Array.isArray(dataA) || dataA.length === 0) {
       console.error('Format ou contenu vide :', dataA);
