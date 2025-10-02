@@ -1,9 +1,16 @@
-.onwer-banner{
-
-  justify-content: space-between;
-  align-items: center;
+.owner-banner {
+  display: flex;
+  flex-direction: column;   /* force en colonne */
+  gap: 8px;                 /* espace entre les éléments */
   padding: 15px 30px;
   background-color: #a9bed5;
   color: black;
   border-radius: 12px;
+}
+
+/* Responsive (optionnel) */
+@media (max-width: 768px) {
+  .owner-banner {
+    padding: 15px;
+  }
 }

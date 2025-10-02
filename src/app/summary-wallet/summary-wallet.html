@@ -1,10 +1,11 @@
-<div class="wallet-summary">
-  <div class="wallet-card">
-    <div class="label">Total Value</div>
-    <div class="value">{{ walletValue | number:'1.0-2' }}€</div>
+<div class="flex gap-5 mt-2">
+  <div class="bg-[#a9bed5] text-black text-center min-w-[150px] px-6 py-4 rounded-lg shadow-md">
+    <div class="text-sm opacity-90 mb-1">Total Value</div>
+    <div class="text-xl font-bold">{{ walletValue | number:'1.0-2' }} €</div>
   </div>
-  <div class="wallet-card">
-    <div class="label">Total Invest</div>
-    <div class="value">{{ totalInvest | number:'1.0-2' }} €</div>
+
+  <div class="bg-[#a9bed5] text-black text-center min-w-[150px] px-6 py-4 rounded-lg shadow-md">
+    <div class="text-sm opacity-90 mb-1">Total Invest</div>
+    <div class="text-xl font-bold">{{ totalInvest | number:'1.0-2' }} €</div>
   </div>
 </div>

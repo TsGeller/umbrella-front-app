@@ -61,6 +61,8 @@ For more information on using the Angular CLI, including detailed command refere
 Commande intéressante
 
 - docker ps : check les contenaire déployés
+- arreter les container : docker stop ID_CONTAINER
+- supprimer les containers : docker rm ID_CONTAINER
 - docker images : voir les images
 - docker rmi 'image id'
 - docker build -t front-umbrella .

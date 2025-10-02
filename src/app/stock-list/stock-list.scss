@@ -3,7 +3,26 @@
   padding: 20px;
   border-radius: 10px;
   color: black; 
-  height: 240px;
-  width:780px; 
-  overflow-y: scroll;
+  width: 100%;          /* prend toute la largeur dispo */
+  max-width: 800px;     /* limite sur grand écran */
+  max-height: 300px;    /* limite la hauteur */
+  overflow-y: auto;     /* scroll vertical seulement si besoin */
+  margin: 0;            /* reste collé à gauche */
+  box-sizing: border-box;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .list-container {
+    padding: 15px;
+    max-height: 200px;
+  }
+
+  .list-container h2 {
+    font-size: 1.2rem;
+  }
+
+  .list-container table {
+    font-size: 0.9rem;  /* texte plus petit sur mobile */
+  }
 }
