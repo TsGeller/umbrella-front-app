@@ -1,6 +1,11 @@
+version: "3.8"
+
 services:
   frontend:
-    build: .
-    container_name: my-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: umbrella-front-container
+    image: umbrella-front
     ports:
-      - "4200:4200"
+      - "4200:80"
