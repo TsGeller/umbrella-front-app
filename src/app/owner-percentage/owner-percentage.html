@@ -10,20 +10,36 @@
   </h2>
 
   <div class="space-y-3">
+    <!-- Antoine -->
     <div
       class="flex justify-between items-center bg-surface-card/40 border border-white/5
              rounded-xl px-4 py-3 hover:bg-surface-card/60 transition-colors duration-200"
     >
       <span class="text-text-med font-medium">Antoine</span>
-      <span class="font-semibold text-accentNeo">{{ value_antoine | number:'1.0-2' }} €</span>
+      <div class="text-right">
+        <span class="font-semibold text-accentNeo">
+          {{ value_antoine | number:'1.0-2' }} €
+        </span>
+        <div class="text-sm text-text-low">
+          {{ percentage_antoine | number:'1.0-2' }} %
+        </div>
+      </div>
     </div>
 
+    <!-- Arthur -->
     <div
       class="flex justify-between items-center bg-surface-card/40 border border-white/5
              rounded-xl px-4 py-3 hover:bg-surface-card/60 transition-colors duration-200"
     >
       <span class="text-text-med font-medium">Arthur</span>
-      <span class="font-semibold text-brand">{{ value_arthur | number:'1.0-2' }} €</span>
+      <div class="text-right">
+        <span class="font-semibold text-brand">
+          {{ value_arthur | number:'1.0-2' }} €
+        </span>
+        <div class="text-sm text-text-low">
+          {{ percentage_arthur | number:'1.0-2' }} %
+        </div>
+      </div>
     </div>
   </div>
 </div>
