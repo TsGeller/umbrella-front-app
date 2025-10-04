@@ -1,5 +1,29 @@
-<div class="owner-banner">
-    <h2 class="owner">Owners</h2>
-    <p>Antoine : {{ value_antoine | number:'1.0-2' }} €</p>
-    <p>Arthur : {{ value_arthur | number:'1.0-2' }} €</p>
+<div
+  class="rounded-2xl p-6 bg-gradient-to-br from-brand/10 to-accentNeo/10
+         backdrop-blur-xs border border-white/10 shadow-soft
+         text-text-high hover:shadow-glow transition-all duration-200"
+>
+  <h2
+    class="text-lg font-semibold mb-4 bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent"
+  >
+    Owners
+  </h2>
+
+  <div class="space-y-3">
+    <div
+      class="flex justify-between items-center bg-surface-card/40 border border-white/5
+             rounded-xl px-4 py-3 hover:bg-surface-card/60 transition-colors duration-200"
+    >
+      <span class="text-text-med font-medium">Antoine</span>
+      <span class="font-semibold text-accentNeo">{{ value_antoine | number:'1.0-2' }} €</span>
+    </div>
+
+    <div
+      class="flex justify-between items-center bg-surface-card/40 border border-white/5
+             rounded-xl px-4 py-3 hover:bg-surface-card/60 transition-colors duration-200"
+    >
+      <span class="text-text-med font-medium">Arthur</span>
+      <span class="font-semibold text-brand">{{ value_arthur | number:'1.0-2' }} €</span>
+    </div>
+  </div>
 </div>

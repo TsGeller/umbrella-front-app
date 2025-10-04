@@ -1,11 +1,29 @@
-<header class="flex flex-col md:flex-row justify-between items-start md:items-center p-4 md:px-8 bg-[#a9bed5] text-black rounded-xl">
-  <div class="text-xl md:text-2xl font-bold mb-2 md:mb-0">
-    Welcome back Antoine !
+<header
+  class="flex flex-col md:flex-row justify-between items-start md:items-center p-4 md:px-8 rounded-2xl
+         bg-gradient-to-r from-brand/10 to-accentNeo/10 backdrop-blur-xs border border-white/5
+         shadow-soft text-text-high"
+>
+  <!-- Bloc gauche -->
+  <div>
+    <div class="text-xl md:text-2xl font-semibold bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent">
+      Welcome back, User 👋
+    </div>
+    <p class="text-text-med text-sm mt-1">Heureux de vous revoir sur votre portefeuille</p>
   </div>
 
-  <nav class="flex flex-col md:flex-row w-full md:w-auto gap-2 md:gap-6">
-    <a href="#" class="text-white hover:text-[#1abc9c] transition-colors">Dashboard</a>
-    <a href="#" class="text-white hover:text-[#1abc9c] transition-colors">Profil</a>
-    <a href="#" class="text-white hover:text-[#1abc9c] transition-colors">Déconnexion</a>
+  <!-- Navigation -->
+  <nav class="flex flex-col md:flex-row w-full md:w-auto gap-2 md:gap-6 mt-3 md:mt-0">
+    <a href="#"
+       class="text-text-med hover:text-accentNeo transition-colors duration-200 font-medium">
+       Dashboard
+    </a>
+    <a href="#"
+       class="text-text-med hover:text-accentNeo transition-colors duration-200 font-medium">
+       Profil
+    </a>
+    <a href="#"
+       class="text-danger hover:text-danger/80 transition-colors duration-200 font-medium">
+       Déconnexion
+    </a>
   </nav>
 </header>

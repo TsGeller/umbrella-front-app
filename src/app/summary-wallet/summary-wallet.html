@@ -1,11 +1,35 @@
-<div class="flex gap-5 mt-2">
-  <div class="bg-[#a9bed5] text-black text-center min-w-[150px] px-6 py-4 rounded-lg shadow-md">
-    <div class="text-sm opacity-90 mb-1">Total Value</div>
-    <div class="text-xl font-bold">{{ walletValue | number:'1.0-2' }} €</div>
+<div class="flex flex-wrap gap-5 mt-4">
+  <!-- Total Value -->
+  <div
+    class="flex-1 min-w-[180px] text-center p-5 rounded-2xl
+           bg-gradient-to-br from-brand/10 to-accentNeo/10 backdrop-blur-xs
+           border border-white/10 shadow-soft hover:shadow-glow
+           transition-all duration-200"
+  >
+    <div class="text-sm text-text-med mb-1 tracking-wide uppercase">
+      Total Value
+    </div>
+    <div
+      class="text-2xl font-semibold bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent"
+    >
+      {{ walletValue | number: '1.0-2' }} €
+    </div>
   </div>
 
-  <div class="bg-[#a9bed5] text-black text-center min-w-[150px] px-6 py-4 rounded-lg shadow-md">
-    <div class="text-sm opacity-90 mb-1">Total Invest</div>
-    <div class="text-xl font-bold">{{ totalInvest | number:'1.0-2' }} €</div>
+  <!-- Total Invest -->
+  <div
+    class="flex-1 min-w-[180px] text-center p-5 rounded-2xl
+           bg-gradient-to-br from-brand/10 to-accentNeo/10 backdrop-blur-xs
+           border border-white/10 shadow-soft hover:shadow-glow
+           transition-all duration-200"
+  >
+    <div class="text-sm text-text-med mb-1 tracking-wide uppercase">
+      Total Invest
+    </div>
+    <div
+      class="text-2xl font-semibold bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent"
+    >
+      {{ totalInvest | number: '1.0-2' }} €
+    </div>
   </div>
 </div>

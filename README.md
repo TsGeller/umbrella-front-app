@@ -67,3 +67,8 @@ Commande intéressante
 - docker rmi 'image id'
 - docker build -t front-umbrella .
 - docker run -d --name front-umbrella -p 4200:80 front-umbrella
+
+every time update code
+
+- git pull
+- docker compose -d --build

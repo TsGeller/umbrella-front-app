@@ -1,25 +1,55 @@
-<div class="list_container">
-<h2>Stock List</h2>
-<p-table
-  [value]="stocks"
-  showGridlines
-  [tableStyle]="{ 'min-width': '40rem' }">
-  <ng-template pTemplate="header">
-    <tr class="title">
-      <th><h3>Stock</h3></th>
-      <th><h3>Name</h3></th>
-      <th><h3>Quantity</h3></th>
-      <th><h3>Price</h3></th>
-      <th><h3>Total Value</h3></th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-product>
-    <tr>
-      <td>{{ product.stockName }}</td>
-      <td>{{ product.name }}</td>
-      <td>{{ product.quantity }}</td>
-      <td>{{ product.price | currency:'EUR' }}</td>
-      <td>{{ product.price* product.quantity | currency:'EUR' }}</td>
-    </tr>
-  </ng-template>
-</p-table>
+<div
+  class="rounded-2xl p-6 bg-gradient-to-br from-brand/10 to-accentNeo/10
+         backdrop-blur-xs border border-white/10 shadow-soft text-text-high"
+>
+  <!-- Titre plus mis en avant -->
+  <h2
+    class="text-xl font-semibold mb-5 bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent drop-shadow-[0_0_6px_rgba(90,108,255,0.4)]"
+  >
+    📊 Stock List
+  </h2>
+
+  <div class="overflow-hidden rounded-xl border border-white/5">
+    <p-table
+      [value]="stocks"
+      [tableStyle]="{ 'min-width': '45rem', 'border-collapse': 'separate', 'border-spacing': '0 6px' }"
+      class="w-full text-sm"
+    >
+      <!-- Header -->
+      <ng-template pTemplate="header">
+        <tr
+          class="bg-surface-card/80 text-text-high uppercase tracking-wide text-xs font-medium"
+        >
+          <th class="py-3 px-4 text-left">Stock</th>
+          <th class="py-3 px-4 text-left">Name</th>
+          <th class="py-3 px-4 text-right">Quantity</th>
+          <th class="py-3 px-4 text-right">Price</th>
+          <th class="py-3 px-4 text-right">Total Value</th>
+        </tr>
+      </ng-template>
+
+      <!-- Rows -->
+      <ng-template pTemplate="body" let-stock>
+        <tr
+          class="group bg-surface-card/20 hover:bg-surface-card/40 transition-all duration-200 rounded-lg"
+        >
+          <td class="py-3 px-4 font-medium text-text-high rounded-l-lg">
+            {{ stock.stockName }}
+          </td>
+          <td class="py-3 px-4 text-text-med">{{ stock.name }}</td>
+          <td class="py-3 px-4 text-right text-text-high">
+            {{ stock.quantity }}
+          </td>
+          <td class="py-3 px-4 text-right text-text-med">
+            {{ stock.price | currency: 'EUR' }}
+          </td>
+          <td
+            class="py-3 px-4 text-right font-semibold text-accentNeo rounded-r-lg"
+          >
+            {{ stock.price * stock.quantity | currency: 'EUR' }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

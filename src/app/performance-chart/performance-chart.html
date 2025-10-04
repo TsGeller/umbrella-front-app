@@ -1,6 +1,16 @@
-<div>  
-<div class="chart-wrapper">
-  <h2>Chart Performance</h2>
-  <p-chart type="line" [data]="chartData" [options]="chartOptions" [height]="heightChart"  ></p-chart>
-</div>
+<div
+  class="rounded-2xl p-6 bg-gradient-to-br from-brand/10 to-accentNeo/10
+         backdrop-blur-xs border border-white/10 shadow-soft text-text-high
+         hover:shadow-glow transition-all duration-200"
+>
+  <h2 class="text-lg font-semibold mb-4 bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent">
+    Chart Performance
+  </h2>
+
+  <p-chart
+    type="line"
+    [data]="chartData"
+    [options]="chartOptions"
+    [height]="heightChart"
+  ></p-chart>
 </div>
