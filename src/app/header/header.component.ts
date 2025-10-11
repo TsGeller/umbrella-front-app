@@ -10,10 +10,14 @@ import { PortfolioService } from '../services/portfolio';
 })
 export class Header implements OnInit {
   portfolio: any;
+  activePage = 'dashboard'; 
+  isMenuOpen = false;
+  toggleMenu() { this.isMenuOpen = !this.isMenuOpen;}
 
   constructor(private portfolioService: PortfolioService) {}
 
   ngOnInit(): void {
+    
     this.portfolioService.getMockPortfolio('1').subscribe(data => {
       this.portfolio = data;
     });

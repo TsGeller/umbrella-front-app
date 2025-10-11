@@ -106,6 +106,23 @@ export class PortfolioService {
       this.portfolioSubject.next(currentPortfolio);
     });
 }
+getPriceForTickerSpydde(): Observable<any> {
+  return this.http.get<any>(`${this.baseUrl}/stock_information/get_prices/SPYD.DE`)
+    .pipe(
+      catchError(error => {
+        console.error('Erreur de récupération :', error);
+        return of(null);
+      }),
+      map(response => {
+        if (!response || !response.data) {
+          console.error('Pas de données disponibles pour SPYD.DE');
+          return null;
+        }
+        console.log('Données SPYD.DE reçues :', response.data);
+        return response.data;
+      })
+    );
+}
 
 
 

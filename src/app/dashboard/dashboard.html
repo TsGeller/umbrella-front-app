@@ -1,25 +1,29 @@
-<div class="min-h-screen bg-surface-dark text-text-high font-sans pb-12">
+<div class="min-h-screen bg-dark text-text-high font-sans pb-12">
   <!-- Header -->
   <app-header></app-header>
 
   <!-- Section principale -->
-  <main class="max-w-7xl mx-auto px-4 md:px-8 mt-6 space-y-8">
+  <main class="max-w-7xl mx-auto px-4 md:px-8 mt-8 space-y-10">
     <!-- Résumé du wallet -->
     <section>
       <app-summary-wallet></app-summary-wallet>
     </section>
-
+<div class="bg-card/90 border border-white/10 rounded-xl shadow-soft p-6 hover:shadow-glow transition-all">
+        <app-performance-chart></app-performance-chart>
+      </div>
     <!-- Graphiques et répartition -->
-    <section
-      class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-fr"
-    >
-      <app-performance-chart></app-performance-chart>
-      <app-piechart></app-piechart>
-      <app-owner-percentage></app-owner-percentage>
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-fr">
+      
+      <div class="bg-card/90 border border-white/10 rounded-xl shadow-soft p-6 hover:shadow-glow transition-all">
+        <app-piechart></app-piechart>
+      </div>
+      <div class="bg-card/90 border border-white/10 rounded-xl shadow-soft p-6 hover:shadow-glow transition-all">
+        <app-owner-percentage></app-owner-percentage>
+      </div>
     </section>
 
-    <!-- Liste des stocks -->
-    <section>
+    <!-- Liste des actions -->
+    <section class="bg-card/90 border border-white/10 rounded-xl shadow-soft p-6 hover:shadow-glow transition-all">
       <app-stock-list></app-stock-list>
     </section>
   </main>

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PerformanceChart } from './performance-chart';
+import { PerformanceChart } from './performance-chart.component';
 
 describe('PerformanceChart', () => {
   let component: PerformanceChart;

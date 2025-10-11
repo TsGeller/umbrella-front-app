@@ -37,12 +37,13 @@ export class Piechart implements OnInit {
         {
           data: values,
           backgroundColor: [
-            '#5A6CFF', // brand violet
-            '#20E3B2', // accent turquoise
-            '#7C84FF',
-            '#00D28A',
-            '#FFB020',
-            '#FF4D4F',
+            '#4F46E5', // Indigo
+        '#06B6D4', // Cyan clair
+        '#22C55E', // Vert émeraude
+        '#EAB308', // Jaune doré
+        '#F97316', // Orange doux
+        '#EC4899', // Rose magenta
+        '#8B5CF6', // Violet pastel
           ],
           hoverBackgroundColor: [
             '#7C84FF',

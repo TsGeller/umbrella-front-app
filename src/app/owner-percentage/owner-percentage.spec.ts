@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OwnerPercentage } from './owner-percentage';
+import { OwnerPercentage } from './owner-percentage.component';
 
 describe('OwnerPercentage', () => {
   let component: OwnerPercentage;
