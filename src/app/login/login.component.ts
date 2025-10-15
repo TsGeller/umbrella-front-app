@@ -27,14 +27,15 @@ export class Login {
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      const { username, password } = this.loginForm.value;  // ← Changé 'email' en 'username'
-      this.authService.login(username, password).subscribe({
-        next: () => this.router.navigate(['/dashboard']),
-        error: (err: { error: { message: string; }; }) => {
-          this.errorMessage = err.error.message || 'Erreur de connexion';
-        },
-      });
-    }
+  if (this.loginForm.valid) {
+    const { username, password } = this.loginForm.value;
+
+    this.authService.login(username, password).subscribe({
+      next: () => this.router.navigate(['/dashboard']),
+      error: (err: { error: { message: string } }) => {
+        this.errorMessage = err.error.message || 'Erreur de connexion';
+      },
+    });
   }
+}
 }
