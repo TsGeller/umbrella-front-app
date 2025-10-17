@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
+interface RegisterPayload {
+  username: string;
+  email: string;
+  password: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private apiUrl = 'http://51.21.224.128:8000'; // Ton backend
@@ -27,6 +33,13 @@ export class AuthService {
           localStorage.setItem('username', username);
         })
       );
+  }
+
+  /** 🆕 Création de compte */
+  register(payload: RegisterPayload): Observable<any> {
+    return this.http.post(`${this.apiUrl}/users/add_user/`, payload, {
+      withCredentials: true,
+    });
   }
 
   /** 🔍 Vérifie si la session est encore active */

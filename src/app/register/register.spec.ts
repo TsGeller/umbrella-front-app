@@ -1,29 +1,28 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
-import { Login } from './login.component';
+import { Register } from './register.component';
+import { AuthService } from '../services/auth.service';
 
-describe('Login', () => {
-  let component: Login;
-  let fixture: ComponentFixture<Login>;
+describe('Register', () => {
+  let component: Register;
+  let fixture: ComponentFixture<Register>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Login, RouterTestingModule],
+      imports: [Register, RouterTestingModule],
       providers: [
         {
-          provide: ActivatedRoute,
+          provide: AuthService,
           useValue: {
-            queryParamMap: of(convertToParamMap({}))
+            register: () => of({})
           }
         }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(Login);
+    fixture = TestBed.createComponent(Register);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

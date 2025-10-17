@@ -1,66 +1,65 @@
 <header
-  class="bg-surface-card/80 backdrop-blur-md border-b border-white/10 sticky top-0 z-50 shadow-soft"
+  class="header-container sticky top-0 z-50 border-b border-white/10 bg-surface-card/80 backdrop-blur-md shadow-soft"
 >
-  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-    <!-- Logo / Titre -->
-    <div class="flex items-center gap-3">
+  <div class="max-w-7xl mx-auto flex items-center justify-between gap-6 px-6 py-4">
+    <a routerLink="/dashboard" class="flex items-center gap-3">
       <img src="logo.svg" alt="Umbrella Logo" class="w-9 h-9 drop-shadow-glow" />
-      <span class="text-text-high text-lg md:text-xl font-semibold tracking-wide">
-        Umbrella Dashboard
-      </span>
-    </div>
+      <div class="flex flex-col leading-tight">
+        <span class="text-text-high text-lg md:text-xl font-semibold tracking-wide">
+          Umbrella Portfolio
+        </span>
+        <span class="hidden sm:block text-text-low text-xs uppercase tracking-[0.35em]">
+          Wealth overview
+        </span>
+      </div>
+    </a>
 
-    <!-- Navigation Desktop -->
-    <nav
-      class="hidden md:flex items-center gap-6 text-sm font-medium text-text-low"
-    >
+    <nav class="navigation hidden md:flex items-center gap-6 text-sm font-medium text-text-low">
       <a
-        href="dashboard"
-        class="text-brand hover:text-brand-light transition-colors duration-200"
-        >Dashboard</a
+        routerLink="/dashboard"
+        routerLinkActive="nav-active"
+        class="nav-link"
+        [routerLinkActiveOptions]="{ exact: true }"
       >
-      <span class="opacity-60 cursor-not-allowed">Performances</span>
-      <span class="opacity-60 cursor-not-allowed">Marchés</span>
-      <span class="opacity-60 cursor-not-allowed">Communauté</span>
+        Dashboard
+      </a>
+      <button class="nav-link nav-disabled" disabled>Performances</button>
+      <button class="nav-link nav-disabled" disabled>Marchés</button>
+      <button class="nav-link nav-disabled" disabled>Communauté</button>
     </nav>
 
-    <!-- Boutons + Profil -->
-    <div class="flex items-center gap-4 relative">
-      <!-- Si pas connecté -->
+    <div class="flex items-center gap-4">
       @if (!isLoggedIn) {
         <button
-        (click)="goToLogin()"
-          class="hidden md:block bg-brand hover:bg-brand-light text-white text-sm font-medium px-5 py-2 rounded-xl transition-all duration-200 shadow-soft"
+          (click)="goToLogin()"
+          class="hidden md:inline-flex items-center gap-2 rounded-xl bg-brand px-5 py-2 text-sm font-medium text-white transition-all duration-200 hover:bg-brand-light hover:shadow-glow"
         >
-          Se connecter
+          <span>Se connecter</span>
         </button>
       }
 
-      <!-- Si connecté -->
       @if (isLoggedIn) {
         <div class="relative">
           <button
-            (click)="isMenuOpen = !isMenuOpen"
-            class="w-9 h-9 rounded-full bg-gradient-to-br from-brand to-accentNeo
-                   flex items-center justify-center text-white text-sm font-semibold
-                   shadow-glow hover:scale-105 transition-transform"
+            type="button"
+            (click)="toggleProfileMenu()"
+            class="avatar-button"
+            [attr.aria-expanded]="isProfileMenuOpen"
+            aria-haspopup="true"
           >
-            {{ firstLetter }}
+            <span aria-hidden="true">{{ firstLetter }}</span>
           </button>
 
-          @if (isMenuOpen) {
-            <div
-              class="absolute right-0 mt-2 w-40 bg-surface-card/95 border border-white/10 rounded-xl shadow-lg backdrop-blur-md overflow-hidden z-50"
-            >
-              <div
-                class="px-4 py-2 text-sm text-text-high border-b border-white/10"
-              >
-                {{ username }}
+          @if (isProfileMenuOpen) {
+            <div class="profile-menu" role="menu">
+              <div class="profile-headline">
+                <span class="initial">{{ firstLetter }}</span>
+                <div>
+                  <p class="username">{{ username }}</p>
+                  <p class="subtitle">Compte connecté</p>
+                </div>
               </div>
-              <button
-                (click)="logout()"
-                class="w-full text-left px-4 py-2 text-sm text-red-400 hover:text-red-300 hover:bg-white/5 transition-colors"
-              >
+              <button type="button" class="menu-item" (click)="logout()" role="menuitem">
                 Se déconnecter
               </button>
             </div>
@@ -68,10 +67,12 @@
         </div>
       }
 
-      <!-- Burger menu (mobile) -->
       <button
-        (click)="toggleMenu()"
-        class="md:hidden text-text-med hover:text-text-high transition-colors"
+        type="button"
+        (click)="toggleMobileMenu()"
+        class="md:hidden rounded-full p-2 text-text-low transition-colors hover:bg-white/5 hover:text-text-high"
+        [attr.aria-expanded]="isMobileMenuOpen"
+        aria-label="Ouvrir la navigation"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -79,33 +80,25 @@
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          class="w-6 h-6"
+          class="h-6 w-6"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-          />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5m-16.5 5.25h16.5m-16.5 5.25h16.5" />
         </svg>
       </button>
     </div>
   </div>
 
-  <!-- Menu mobile -->
-  @if (isMenuOpen) {
+  @if (isMobileMenuOpen) {
     <nav
-      class="md:hidden flex flex-col items-center gap-4 bg-surface-card/95 border-t border-white/10 py-4 text-sm transition-all duration-200"
+      class="md:hidden flex flex-col gap-2 border-t border-white/10 bg-surface-card/95 px-6 py-4 text-sm text-text-med backdrop-blur-md"
+      role="menu"
     >
-      <a href="#" class="text-brand">Dashboard</a>
-      <span class="text-text-low opacity-60 cursor-not-allowed">Portefeuille</span>
-      <span class="text-text-low opacity-60 cursor-not-allowed">Performances</span>
-      <span class="text-text-low opacity-60 cursor-not-allowed">Marchés</span>
-      <span class="text-text-low opacity-60 cursor-not-allowed">Communauté</span>
+      <a routerLink="/dashboard" class="mobile-link" (click)="toggleMobileMenu()" role="menuitem">Dashboard</a>
+      <span class="mobile-link disabled" role="menuitem">Performances</span>
+      <span class="mobile-link disabled" role="menuitem">Marchés</span>
+      <span class="mobile-link disabled" role="menuitem">Communauté</span>
       @if (isLoggedIn) {
-        <button
-          (click)="logout()"
-          class="text-red-400 hover:text-red-300 font-medium"
-        >
+        <button type="button" class="mobile-link danger" (click)="logout()" role="menuitem">
           Se déconnecter
         </button>
       }
