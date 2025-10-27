@@ -1,16 +1,119 @@
-.owner-banner {
-  display: flex;
-  flex-direction: column;   /* force en colonne */
-  gap: 8px;                 /* espace entre les éléments */
-  padding: 15px 30px;
-  background-color: #a9bed5;
-  color: black;
-  border-radius: 12px;
+.breakdown-card {
+  position: relative;
+  padding: clamp(0.6rem, 1.2vw, 0.9rem);
+  border-radius: 18px;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.25), rgba(190, 210, 255, 0.2)),
+    rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: rgba(18, 22, 45, 0.85);
+  box-shadow: 0 20px 38px rgba(12, 18, 50, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(12px);
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.25), transparent 55%),
+      radial-gradient(circle at 80% 90%, rgba(120, 198, 255, 0.18), transparent 60%);
+    pointer-events: none;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
 }
 
-/* Responsive (optionnel) */
+.breakdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+
+  h2 {
+    margin: 0.1rem 0 0;
+    font-size: clamp(0.95rem, 1.6vw, 1.2rem);
+    font-weight: 600;
+    color: rgba(12, 16, 34, 0.9);
+  }
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  font-size: 0.58rem;
+  letter-spacing: 0.28em;
+  color: rgba(12, 16, 34, 0.45);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(18, 22, 45, 0.12);
+  background: rgba(18, 22, 45, 0.06);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(18, 22, 45, 0.6);
+  letter-spacing: 0.04em;
+}
+
+.snapshot-list,
+.owners-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    color: rgba(12, 16, 32, 0.75);
+
+      span:first-child {
+        text-transform: uppercase;
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        color: rgba(12, 16, 32, 0.5);
+      }
+
+    span:last-child {
+      font-weight: 600;
+      color: rgba(12, 16, 32, 0.75);
+    }
+
+      small {
+        margin-left: 0.4rem;
+        font-size: 0.68rem;
+        color: rgba(12, 16, 32, 0.45);
+      }
+  }
+}
+
+.owners-list {
+  li span:last-child {
+    color: #8c7cff;
+  }
+
+  li:nth-child(2) span:last-child {
+    color: #60d1c4;
+  }
+}
+
+.separator {
+  height: 1px;
+  margin: 0.9rem 0;
+  background: linear-gradient(90deg, rgba(12, 16, 32, 0), rgba(12, 16, 32, 0.25), rgba(12, 16, 32, 0));
+}
+
 @media (max-width: 768px) {
-  .owner-banner {
-    padding: 15px;
+  .breakdown-card {
+    padding: 1.6rem;
   }
 }

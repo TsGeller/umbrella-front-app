@@ -6,13 +6,12 @@ import { OwnerPercentage } from '../owner-percentage/owner-percentage.component'
 import { StockList } from '../stock-list/stock-list.component';
 import { Header } from '../header/header.component';
 import { ChartModule } from 'primeng/chart';
-import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [
-     Header, SummaryWallet, PerformanceChart, ChartModule, Piechart, StockList, TableModule, OwnerPercentage
+     Header, SummaryWallet, PerformanceChart, ChartModule, Piechart, StockList, OwnerPercentage
   ],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss']

@@ -1,29 +1,43 @@
-<div
-  class="rounded-2xl p-6 bg-gradient-to-br from-brand/10 to-accentNeo/10
-         backdrop-blur-xs border border-white/10 shadow-soft
-         text-text-high hover:shadow-glow transition-all duration-200"
->
-  <h2
-    class="text-lg font-semibold mb-4 bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent"
-  >
-    Owners
-  </h2>
-
-  <div class="space-y-3">
-    <div
-      class="flex justify-between items-center bg-surface-card/40 border border-white/5
-             rounded-xl px-4 py-3 hover:bg-surface-card/60 transition-colors duration-200"
-    >
-      <span class="text-text-med font-medium">Antoine</span>
-      <span class="font-semibold text-accentNeo">{{ value_antoine | number:'1.0-2' }} €</span>
+<div class="breakdown-card">
+  <header class="breakdown-header">
+    <div>
+      <p class="eyebrow">Table 1</p>
+      <h2>Portfolio snapshot</h2>
     </div>
+    <span class="badge">Synchro</span>
+  </header>
 
-    <div
-      class="flex justify-between items-center bg-surface-card/40 border border-white/5
-             rounded-xl px-4 py-3 hover:bg-surface-card/60 transition-colors duration-200"
-    >
-      <span class="text-text-med font-medium">Arthur</span>
-      <span class="font-semibold text-brand">{{ value_arthur | number:'1.0-2' }} €</span>
-    </div>
-  </div>
+  <ul class="snapshot-list">
+    <li>
+      <span>Total value</span>
+      <span>{{ portfolio_total | number: '1.0-2' }} €</span>
+    </li>
+    <li>
+      <span>Investment</span>
+      <span>{{ investment_value | number: '1.0-2' }} €</span>
+    </li>
+    <li>
+      <span>Cash</span>
+      <span>{{ cash_value | number: '1.0-2' }} €</span>
+    </li>
+  </ul>
+
+  <div class="separator"></div>
+
+  <ul class="owners-list">
+    <li>
+      <span>Antoine</span>
+      <span>
+        {{ value_antoine | number: '1.0-2' }} €
+        <small>{{ percentage_antoine | number: '1.0-1' }}%</small>
+      </span>
+    </li>
+    <li>
+      <span>Arthur</span>
+      <span>
+        {{ value_arthur | number: '1.0-2' }} €
+        <small>{{ percentage_arthur | number: '1.0-1' }}%</small>
+      </span>
+    </li>
+  </ul>
 </div>

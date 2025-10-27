@@ -12,6 +12,7 @@ export class SummaryWallet implements OnInit {
   portfolio: any;
   walletValue: number = 0;
   totalInvest: number = 0;
+  dailyPl: number | null = null;
 
   constructor(private portfolioService: PortfolioService) {}
 
@@ -27,10 +28,17 @@ export class SummaryWallet implements OnInit {
       const latestEntry = data[data.length - 1];
       const totalValue = parseFloat(latestEntry.total_value);
       const totalInvest = parseFloat(latestEntry.portfolio_total_value);
+      const previousEntry = data.length > 1 ? data[data.length - 2] : null;
+      const previousValue = previousEntry ? parseFloat(previousEntry.total_value) : null;
 
       if (!isNaN(totalValue)) {
         this.walletValue = totalValue;
-        this.totalInvest = totalInvest
+        this.totalInvest = isNaN(totalInvest) ? 0 : totalInvest;
+        if (previousValue !== null && !isNaN(previousValue)) {
+          this.dailyPl = totalValue - previousValue;
+        } else {
+          this.dailyPl = null;
+        }
       } else {
         console.error('Valeur totale invalide :', latestEntry.total_value);
       }

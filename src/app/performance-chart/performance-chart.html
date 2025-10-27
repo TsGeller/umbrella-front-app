@@ -1,16 +1,32 @@
-<div
-  class="rounded-2xl p-6 bg-gradient-to-br from-brand/10 to-accentNeo/10
-         backdrop-blur-xs border border-white/10 shadow-soft text-text-high
-         hover:shadow-glow transition-all duration-200"
->
-  <h2 class="text-lg font-semibold mb-4 bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent">
-    Chart Performance
-  </h2>
+<div class="performance-card">
+  <div class="card-header">
+    <div>
+      <h2>Portfolio Performance</h2>
+    </div>
+    <div class="header-actions">
+      <button
+        type="button"
+        class="reset-zoom"
+        (click)="resetZoom()"
+        [disabled]="!isZoomed"
+      >
+        Réinitialiser
+      </button>
+    </div>
+  </div>
+  <p class="card-subtitle">Comparaison entre Umbrella et l’indice SPY.</p>
 
-  <p-chart
-    type="line"
-    [data]="chartData"
-    [options]="chartOptions"
-    [height]="heightChart"
-  ></p-chart>
+  <div
+    class="chart-wrapper"
+    (wheel)="onWheel($event)"
+    (dblclick)="resetZoom()"
+    title="Utilisez la molette pour zoomer, double-cliquez pour réinitialiser"
+  >
+    <p-chart
+      type="line"
+      [data]="chartData"
+      [options]="chartOptions"
+      [height]="heightChart"
+    ></p-chart>
+  </div>
 </div>

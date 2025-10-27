@@ -1,28 +1,170 @@
-.list_container {
-  background-color: #a9bed5;
-  padding: 20px;
-  border-radius: 10px;
-  color: black; 
-  width: 100%;          /* prend toute la largeur dispo */
-  max-width: 800px;     /* limite sur grand écran */
-  max-height: 300px;    /* limite la hauteur */
-  overflow-y: auto;     /* scroll vertical seulement si besoin */
-  margin: 0;            /* reste collé à gauche */
-  box-sizing: border-box;
+.stock-card {
+  position: relative;
+  padding: clamp(0.6rem, 1.2vw, 0.9rem);
+  border-radius: 18px;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.22), rgba(190, 210, 255, 0.18)),
+    rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: rgba(15, 20, 40, 0.8);
+  box-shadow: 0 18px 32px rgba(12, 18, 45, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 25%, rgba(255, 255, 255, 0.28), transparent 55%),
+      radial-gradient(circle at 80% 85%, rgba(127, 206, 255, 0.18), transparent 60%);
+    pointer-events: none;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .list-container {
-    padding: 15px;
-    max-height: 200px;
+.stock-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+
+  h2 {
+    margin: 0.1rem 0 0;
+    font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+    font-weight: 600;
+    color: rgba(12, 16, 32, 0.9);
+  }
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  color: rgba(12, 16, 32, 0.45);
+}
+
+.stock-summary {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.12rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(140, 124, 255, 0.18);
+  color: rgba(15, 20, 40, 0.7);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+
+  strong {
+    font-size: 0.82rem;
+    letter-spacing: 0;
+    color: rgba(32, 28, 51, 0.95);
+  }
+}
+
+.table-wrapper {
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(15, 20, 40, 0.08);
+  background: rgba(255, 255, 255, 0.55);
+  max-height: clamp(11rem, 18vh, 15rem);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.stock-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.85rem;
+
+  thead th {
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.62rem;
+    color: rgba(12, 16, 34, 0.45);
+    padding: 0.65rem 0.9rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(230, 229, 255, 0.55));
   }
 
-  .list-container h2 {
-    font-size: 1.2rem;
+  tbody tr {
+    transition: background 0.2s ease, transform 0.2s ease;
+    border-radius: 16px;
   }
 
-  .list-container table {
-    font-size: 0.9rem;  /* texte plus petit sur mobile */
+  tbody td {
+    padding: 0.6rem 0.85rem;
+    color: rgba(12, 16, 34, 0.7);
+    border-top: 1px solid rgba(12, 16, 34, 0.05);
+  }
+
+  tbody tr:hover {
+    background: rgba(255, 255, 255, 0.6);
+    transform: translateY(-2px);
+  }
+
+  tbody tr:first-child td {
+    border-top: none;
+  }
+}
+
+.ticker-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(140, 124, 255, 0.14);
+  color: #8c7cff;
+}
+
+.dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.highlight {
+  color: #8c7cff;
+  font-weight: 600;
+}
+
+.hide-mobile {
+  @media (max-width: 640px) {
+    display: none;
+  }
+}
+
+.empty-state {
+  padding: 1.6rem;
+  border-radius: 18px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px dashed rgba(12, 16, 34, 0.15);
+  color: rgba(12, 16, 34, 0.55);
+
+  span {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: rgba(12, 16, 34, 0.4);
   }
 }

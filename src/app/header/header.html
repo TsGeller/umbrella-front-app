@@ -1,49 +1,28 @@
-<header
-  class="header-container sticky top-0 z-50 border-b border-white/10 bg-surface-card/80 backdrop-blur-md shadow-soft"
->
-  <div class="max-w-7xl mx-auto flex items-center justify-between gap-6 px-6 py-4">
-    <a routerLink="/dashboard" class="flex items-center gap-3">
-      <img src="logo.svg" alt="Umbrella Logo" class="w-9 h-9 drop-shadow-glow" />
-      <div class="flex flex-col leading-tight">
-        <span class="text-text-high text-lg md:text-xl font-semibold tracking-wide">
-          Umbrella Portfolio
-        </span>
-        <span class="hidden sm:block text-text-low text-xs uppercase tracking-[0.35em]">
-          Wealth overview
-        </span>
+<header class="header-container">
+  <div class="header-inner">
+    <div class="greeting-block">
+      <div class="logo-badge">
+        <img src="logo.svg" alt="Umbrella" />
       </div>
-    </a>
 
-    <nav class="navigation hidden md:flex items-center gap-6 text-sm font-medium text-text-low">
-      <a
-        routerLink="/dashboard"
-        routerLinkActive="nav-active"
-        class="nav-link"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        Dashboard
-      </a>
-      <button class="nav-link nav-disabled" disabled>Performances</button>
-      <button class="nav-link nav-disabled" disabled>Marchés</button>
-      <button class="nav-link nav-disabled" disabled>Communauté</button>
-    </nav>
+      <div class="greeting-copy">
+        <p class="greeting">Welcome back</p>
+        <h1 class="greeting-title">{{ username }}.</h1>
+      
+      </div>
+    </div>
 
-    <div class="flex items-center gap-4">
+    <div class="header-actions">
       @if (!isLoggedIn) {
-        <button
-          (click)="goToLogin()"
-          class="hidden md:inline-flex items-center gap-2 rounded-xl bg-brand px-5 py-2 text-sm font-medium text-white transition-all duration-200 hover:bg-brand-light hover:shadow-glow"
-        >
-          <span>Se connecter</span>
-        </button>
+        <button type="button" class="login-btn" (click)="goToLogin()">Se connecter</button>
       }
 
       @if (isLoggedIn) {
-        <div class="relative">
+        <div class="profile-slot">
           <button
             type="button"
-            (click)="toggleProfileMenu()"
             class="avatar-button"
+            (click)="toggleProfileMenu()"
             [attr.aria-expanded]="isProfileMenuOpen"
             aria-haspopup="true"
           >
@@ -66,42 +45,6 @@
           }
         </div>
       }
-
-      <button
-        type="button"
-        (click)="toggleMobileMenu()"
-        class="md:hidden rounded-full p-2 text-text-low transition-colors hover:bg-white/5 hover:text-text-high"
-        [attr.aria-expanded]="isMobileMenuOpen"
-        aria-label="Ouvrir la navigation"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="h-6 w-6"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5m-16.5 5.25h16.5m-16.5 5.25h16.5" />
-        </svg>
-      </button>
     </div>
   </div>
-
-  @if (isMobileMenuOpen) {
-    <nav
-      class="md:hidden flex flex-col gap-2 border-t border-white/10 bg-surface-card/95 px-6 py-4 text-sm text-text-med backdrop-blur-md"
-      role="menu"
-    >
-      <a routerLink="/dashboard" class="mobile-link" (click)="toggleMobileMenu()" role="menuitem">Dashboard</a>
-      <span class="mobile-link disabled" role="menuitem">Performances</span>
-      <span class="mobile-link disabled" role="menuitem">Marchés</span>
-      <span class="mobile-link disabled" role="menuitem">Communauté</span>
-      @if (isLoggedIn) {
-        <button type="button" class="mobile-link danger" (click)="logout()" role="menuitem">
-          Se déconnecter
-        </button>
-      }
-    </nav>
-  }
 </header>

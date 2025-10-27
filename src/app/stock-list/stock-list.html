@@ -1,55 +1,51 @@
-<div
-  class="rounded-2xl p-6 bg-gradient-to-br from-brand/10 to-accentNeo/10
-         backdrop-blur-xs border border-white/10 shadow-soft text-text-high"
->
-  <!-- Titre plus mis en avant -->
-  <h2
-    class="text-xl font-semibold mb-5 bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent drop-shadow-[0_0_6px_rgba(90,108,255,0.4)]"
-  >
-    📊 Stock List
-  </h2>
+<div class="stock-card">
+  <header class="stock-header">
+    <div>
+      <p class="eyebrow">Holdings</p>
+      <h2>Detailed positions</h2>
+    </div>
+    <div class="stock-summary">
+      <span>Total value</span>
+      <strong>{{ totalValue | currency: 'EUR':'symbol-narrow':'1.0-0' }}</strong>
+    </div>
+  </header>
 
-  <div class="overflow-hidden rounded-xl border border-white/5">
-    <p-table
-      [value]="stocks"
-      [tableStyle]="{ 'min-width': '45rem', 'border-collapse': 'separate', 'border-spacing': '0 6px' }"
-      class="w-full text-sm"
-    >
-      <!-- Header -->
-      <ng-template pTemplate="header">
-        <tr
-          class="bg-surface-card/80 text-text-high uppercase tracking-wide text-xs font-medium"
-        >
-          <th class="py-3 px-4 text-left">Stock</th>
-          <th class="py-3 px-4 text-left">Name</th>
-          <th class="py-3 px-4 text-right">Quantity</th>
-          <th class="py-3 px-4 text-right">Price</th>
-          <th class="py-3 px-4 text-right">Total Value</th>
-        </tr>
-      </ng-template>
-
-      <!-- Rows -->
-      <ng-template pTemplate="body" let-stock>
-        <tr
-          class="group bg-surface-card/20 hover:bg-surface-card/40 transition-all duration-200 rounded-lg"
-        >
-          <td class="py-3 px-4 font-medium text-text-high rounded-l-lg">
-            {{ stock.stockName }}
-          </td>
-          <td class="py-3 px-4 text-text-med">{{ stock.name }}</td>
-          <td class="py-3 px-4 text-right text-text-high">
-            {{ stock.quantity }}
-          </td>
-          <td class="py-3 px-4 text-right text-text-med">
-            {{ stock.price | currency: 'EUR' }}
-          </td>
-          <td
-            class="py-3 px-4 text-right font-semibold text-accentNeo rounded-r-lg"
-          >
-            {{ stock.price * stock.quantity | currency: 'EUR' }}
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
+  @if (hasData) {
+    <div class="table-wrapper">
+      <table class="stock-table">
+        <thead>
+          <tr>
+            <th>Asset</th>
+            <th class="hide-mobile">Name</th>
+            <th class="numeric">Quantity</th>
+            <th class="numeric">Price</th>
+            <th class="numeric">Position</th>
+            <th class="numeric">Weight</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of rows; track row.ticker) {
+            <tr>
+              <td>
+                <span class="ticker-pill" [style.background]="row.color + '22'" [style.color]="row.color">
+                  <span class="dot" [style.background]="row.color"></span>
+                  {{ row.ticker }}
+                </span>
+              </td>
+              <td class="hide-mobile">{{ row.name }}</td>
+              <td class="numeric">{{ row.quantity | number: '1.0-0' }}</td>
+              <td class="numeric">{{ row.price | currency: 'EUR':'symbol-narrow':'1.2-2' }}</td>
+              <td class="numeric highlight">{{ row.totalValue | currency: 'EUR':'symbol-narrow':'1.0-0' }}</td>
+              <td class="numeric">{{ row.weight | percent: '1.0-1' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <div class="empty-state">
+      <p>Aucune position disponible pour le moment.</p>
+      <span>Ajoutez vos premières actions pour visualiser votre portefeuille.</span>
+    </div>
+  }
 </div>

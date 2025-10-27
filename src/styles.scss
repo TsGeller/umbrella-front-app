@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --color-bg-1: #14111f;
+  --color-bg-2: #201c33;
+  --color-surface: rgba(255, 255, 255, 0.12);
+  --color-surface-strong: rgba(255, 255, 255, 0.22);
+  --color-stroke: rgba(255, 255, 255, 0.28);
+  --color-glow: rgba(128, 112, 255, 0.45);
+  --color-accent: #7f6bff;
+  --color-accent-soft: #b9abff;
+  --color-highlight: #54d0c5;
+  --color-text-high: rgba(247, 248, 255, 0.96);
+  --color-text-mid: rgba(215, 218, 245, 0.65);
+  --color-text-low: rgba(215, 218, 245, 0.45);
+}
+
+body {
+  background: radial-gradient(120% 140% at 20% 0%, rgba(153, 121, 241, 0.2), transparent),
+    radial-gradient(90% 100% at 80% 0%, rgba(107, 213, 203, 0.16), transparent),
+    linear-gradient(135deg, var(--color-bg-1), var(--color-bg-2));
+  color: var(--color-text-high);
+  font-family: 'Inter', sans-serif;
+}

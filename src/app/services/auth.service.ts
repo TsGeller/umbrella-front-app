@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
 
 interface RegisterPayload {
   username: string;
@@ -13,6 +13,7 @@ export class AuthService {
   private apiUrl = 'http://51.21.224.128:8000'; // Ton backend
   private currentUserSubject = new BehaviorSubject<string | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
+  private readonly storageKey = 'username';
 
   constructor(private http: HttpClient) {
     // 🔹 Vérifie si une session est déjà active côté backend
@@ -30,7 +31,7 @@ export class AuthService {
       .pipe(
         tap(() => {
           this.currentUserSubject.next(username);
-          localStorage.setItem('username', username);
+          localStorage.setItem(this.storageKey, username);
         })
       );
   }
@@ -50,10 +51,24 @@ export class AuthService {
         tap((response: any) => {
           if (response?.username) {
             this.currentUserSubject.next(response.username);
-            localStorage.setItem('username', response.username);
+            localStorage.setItem(this.storageKey, response.username);
           } else {
-            this.logout();
+            const stored = localStorage.getItem(this.storageKey);
+            if (stored) {
+              this.currentUserSubject.next(stored);
+            } else {
+              this.resetSession();
+            }
           }
+        }),
+        catchError(() => {
+          const stored = localStorage.getItem(this.storageKey);
+          if (stored) {
+            this.currentUserSubject.next(stored);
+          } else {
+            this.resetSession();
+          }
+          return of(null);
         })
       );
   }
@@ -62,19 +77,24 @@ export class AuthService {
   logout(): void {
     this.http
       .post(`${this.apiUrl}/users/logout_user/`, {}, { withCredentials: true })
-      .subscribe(() => {
-        this.currentUserSubject.next(null);
-        localStorage.removeItem('username');
+      .subscribe({
+        next: () => this.resetSession(),
+        error: () => this.resetSession()
       });
   }
 
   /** 👤 Retourne le nom de l’utilisateur connecté */
   getCurrentUsername(): string | null {
-    return this.currentUserSubject.value || localStorage.getItem('username');
+    return this.currentUserSubject.value || localStorage.getItem(this.storageKey);
   }
 
   /** 🟢 Vérifie s’il y a un utilisateur connecté */
   isLoggedIn(): boolean {
     return !!this.getCurrentUsername();
+  }
+
+  private resetSession(): void {
+    this.currentUserSubject.next(null);
+    localStorage.removeItem(this.storageKey);
   }
 }

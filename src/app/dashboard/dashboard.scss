@@ -1,0 +1,124 @@
+.dashboard-shell {
+  min-height: 100vh;
+  display: flex;
+  background: radial-gradient(circle at top left, rgba(160, 141, 255, 0.16), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(80, 210, 197, 0.12), transparent 45%),
+    linear-gradient(135deg, var(--color-bg-1) 0%, var(--color-bg-2) 100%);
+}
+
+.dashboard-gradient {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  color: rgba(246, 248, 255, 0.95);
+  backdrop-filter: blur(6px);
+
+  app-header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    display: block;
+  }
+}
+
+.dashboard-content {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(1rem, 2vw, 1.6rem);
+  padding: clamp(0.8rem, 1.8vw, 1.6rem) clamp(1rem, 2.2vw, 1.8rem) clamp(1rem, 2vw, 1.6rem);
+}
+
+.navigation-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.4rem 0.75rem;
+  border-radius: 22px;
+  background: rgba(18, 22, 45, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 16px 28px rgba(15, 25, 60, 0.3);
+  align-self: stretch;
+  position: sticky;
+  top: 96px;
+  height: fit-content;
+}
+
+.rail-button {
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 16px;
+  border: none;
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(17, 21, 40, 0.7);
+  font-size: 1.05rem;
+  display: grid;
+  place-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  cursor: pointer;
+
+  &.active,
+  &:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.75), rgba(224, 186, 255, 0.75));
+    box-shadow: 0 10px 20px rgba(248, 197, 248, 0.3);
+    transform: translateY(-2px);
+  }
+}
+
+.main-area {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.4rem, 2.4vw, 2.1rem);
+}
+.metric-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.primary-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr);
+  gap: clamp(1.1rem, 2vw, 1.8rem);
+  align-items: stretch;
+}
+
+.grid-performance,
+.grid-side,
+.grid-table,
+.grid-pie {
+  min-width: 0;
+}
+
+.secondary-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.1fr);
+  gap: clamp(1.1rem, 2vw, 1.8rem);
+  align-items: stretch;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-content {
+    grid-template-columns: 1fr;
+  }
+
+  .navigation-rail {
+    flex-direction: row;
+    position: static;
+    justify-content: center;
+  }
+
+  .primary-grid,
+  .secondary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-pill {
+    align-self: flex-start;
+  }
+}
