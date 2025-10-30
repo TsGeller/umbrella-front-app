@@ -14,6 +14,7 @@ import { Stock } from '../models/stock.model';
 })
 export class StockList implements OnInit {
   stocks: Stock[] = [];
+  
   constructor(private service: PortfolioService) {}
 
   ngOnInit(): void {
@@ -24,5 +25,15 @@ export class StockList implements OnInit {
 
     // charger les holdings via le service
     this.service.loadStockHoldings();
+  }
+
+  /**
+   * Calcule la valeur totale du portfolio
+   * @returns La somme de toutes les positions (prix × quantité)
+   */
+  getTotalValue(): number {
+    return this.stocks.reduce((total, stock) => {
+      return total + (stock.price * stock.quantity);
+    }, 0);
   }
 }
