@@ -1,29 +1,42 @@
 <div
-  class="rounded-2xl p-6 bg-gradient-to-br from-brand/10 to-accentNeo/10
-         backdrop-blur-xs border border-white/10 shadow-soft
-         text-text-high hover:shadow-glow transition-all duration-200"
+  class="rounded-2xl p-6 bg-[#13141a] border border-white/10 shadow-sm 
+         hover:shadow-lg hover:border-brand/50 transition-all duration-300"
 >
-  <h2
-    class="text-lg font-semibold mb-4 bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent"
-  >
-    Owners
-  </h2>
-
-  <div class="space-y-3">
-    <div
-      class="flex justify-between items-center bg-surface-card/40 border border-white/5
-             rounded-xl px-4 py-3 hover:bg-surface-card/60 transition-colors duration-200"
+  <div class="flex items-center justify-between mb-5">
+    <h2
+      class="text-2xl font-semibold bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent"
     >
-      <span class="text-text-med font-medium">Antoine</span>
-      <span class="font-semibold text-accentNeo">{{ value_antoine | number:'1.0-2' }} €</span>
-    </div>
+      Owners
+    </h2>
 
-    <div
-      class="flex justify-between items-center bg-surface-card/40 border border-white/5
-             rounded-xl px-4 py-3 hover:bg-surface-card/60 transition-colors duration-200"
-    >
-      <span class="text-text-med font-medium">Arthur</span>
-      <span class="font-semibold text-brand">{{ value_arthur | number:'1.0-2' }} €</span>
+    <div class="p-2 rounded-xl bg-brand/10">
+      <i class="pi pi-users text-accentNeo text-lg"></i>
     </div>
   </div>
+
+  @if (users.length > 0) {
+    <div class="space-y-3">
+      @for (user of users; track user.id) {
+        <div
+          class="flex justify-between items-center bg-[#1a1b22] border border-white/5 
+                 rounded-xl px-4 py-3 hover:bg-[#1f2028] transition-all duration-200"
+        >
+          <div>
+            <span class="text-text-med font-medium">
+              {{ user.first_name || user.username }}
+            </span>
+            <span class="text-xs text-text-low block">
+              {{ getPercentage(user) | number:'1.0-2' }} %
+            </span>
+          </div>
+
+          <span class="font-semibold text-accentNeo">
+            {{ user.value | number:'1.0-2' }} €
+          </span>
+        </div>
+      }
+    </div>
+  } @else {
+    <p class="text-text-low text-sm italic">Chargement des propriétaires...</p>
+  }
 </div>

@@ -1,53 +1,80 @@
 <div
-  class="rounded-2xl p-6 bg-gradient-to-br from-brand/10 to-accentNeo/10
-         backdrop-blur-xs border border-white/10 shadow-soft text-text-high"
+  class="rounded-3xl p-6 bg-gradient-to-br from-surface-card/70 via-surface-card/40 to-surface-card/20
+         border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.25)] backdrop-blur-md"
 >
-  <!-- Titre plus mis en avant -->
-  <h2
-    class="text-xl font-semibold mb-5 bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent drop-shadow-[0_0_6px_rgba(90,108,255,0.4)]"
-  >
-    📊 Stock List
-  </h2>
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-6">
+    <h2
+      class="text-2xl font-semibold tracking-tight bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent"
+    >
+      📊 Stock Portfolio
+    </h2>
 
-  <div class="overflow-hidden rounded-xl border border-white/5">
+    <div class="flex items-center gap-2 text-xs text-text-low">
+      <span class="w-2 h-2 bg-accentNeo rounded-full animate-pulse"></span>
+      <span>Updated live</span>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div
+    class="overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.03] to-transparent"
+  >
     <p-table
       [value]="stocks"
-      [tableStyle]="{ 'min-width': '45rem', 'border-collapse': 'separate', 'border-spacing': '0 6px' }"
+      [tableStyle]="{
+        'min-width': '50rem',
+        'border-collapse': 'separate',
+        'border-spacing': '0'
+      }"
       class="w-full text-sm"
     >
       <!-- Header -->
       <ng-template pTemplate="header">
         <tr
-          class="bg-surface-card/80 text-text-high uppercase tracking-wide text-xs font-medium"
+          class="bg-gradient-to-b from-surface-card/70 to-surface-card/40 text-text-low uppercase tracking-wider text-xs font-semibold"
         >
-          <th class="py-3 px-4 text-left">Stock</th>
-          <th class="py-3 px-4 text-left">Name</th>
-          <th class="py-3 px-4 text-right">Quantity</th>
-          <th class="py-3 px-4 text-right">Price</th>
-          <th class="py-3 px-4 text-right">Total Value</th>
+          <th class="py-3 px-5 text-left rounded-tl-2xl">Symbol</th>
+          <th class="py-3 px-5 text-left">Company</th>
+          <th class="py-3 px-5 text-right">Quantity</th>
+          <th class="py-3 px-5 text-right">Price</th>
+          <th class="py-3 px-5 text-right rounded-tr-2xl">Total</th>
         </tr>
       </ng-template>
 
-      <!-- Rows -->
-      <ng-template pTemplate="body" let-stock>
+      <!-- Body -->
+      <ng-template pTemplate="body" let-stock let-rowIndex="rowIndex">
         <tr
-          class="group bg-surface-card/20 hover:bg-surface-card/40 transition-all duration-200 rounded-lg"
+          class="transition-all duration-300 
+                 hover:bg-gradient-to-r hover:from-brand/10 hover:to-accentNeo/10
+                 border-b border-white/[0.05]
+                 even:bg-white/[0.01] odd:bg-transparent"
         >
-          <td class="py-3 px-4 font-medium text-text-high rounded-l-lg">
+          <td class="py-3 px-5 font-medium text-text-high">
             {{ stock.stockName }}
           </td>
-          <td class="py-3 px-4 text-text-med">{{ stock.name }}</td>
-          <td class="py-3 px-4 text-right text-text-high">
+          <td class="py-3 px-5 text-text-med">{{ stock.name }}</td>
+          <td class="py-3 px-5 text-right text-text-high">
             {{ stock.quantity }}
           </td>
-          <td class="py-3 px-4 text-right text-text-med">
+          <td class="py-3 px-5 text-right text-text-med">
             {{ stock.price | currency: 'EUR' }}
           </td>
           <td
-            class="py-3 px-4 text-right font-semibold text-accentNeo rounded-r-lg"
+            class="py-3 px-5 text-right font-semibold text-green-400"
           >
             {{ stock.price * stock.quantity | currency: 'EUR' }}
           </td>
+        </tr>
+      </ng-template>
+
+      <!-- Footer -->
+      <ng-template pTemplate="footer">
+        <tr class="bg-surface-card/50 text-text-high text-sm font-medium">
+          <td colspan="4" class="py-4 px-5 text-right text-text-med">
+            Total portfolio value:
+          </td>
+          
         </tr>
       </ng-template>
     </p-table>

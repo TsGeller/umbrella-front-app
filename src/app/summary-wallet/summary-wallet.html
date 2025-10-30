@@ -1,16 +1,20 @@
 <div class="flex flex-wrap gap-5 mt-4">
   <!-- Total Value -->
   <div
-    class="flex-1 min-w-[120px] text-center p-5 rounded-2xl
-           bg-gradient-to-br from-brand/10 to-accentNeo/10 backdrop-blur-xs
-           border border-white/10 shadow-soft hover:shadow-glow
-           transition-all duration-200"
+    class="flex flex-col justify-between flex-1 min-w-[200px] p-5 rounded-2xl
+           bg-[#13141a] border border-white/10 shadow-sm hover:shadow-lg
+           hover:border-brand/50 transition-all duration-300"
   >
-    <div class="text-sm text-text-med mb-1 tracking-wide uppercase">
-      Total Value
+    <div class="flex items-center justify-between mb-3">
+      <span class="text-sm text-text-low uppercase tracking-wider">
+        Total Value
+      </span>
+      <div class="p-2 rounded-lg bg-brand/10">
+        <i class="pi pi-wallet text-brand text-lg"></i>
+      </div>
     </div>
     <div
-      class="text-2xl font-semibold bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent"
+      class="text-3xl font-semibold bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent"
     >
       {{ walletValue | number: '1.0-2' }} €
     </div>
@@ -18,16 +22,20 @@
 
   <!-- Total Invest -->
   <div
-    class="flex-1 min-w-[180px] text-center p-5 rounded-2xl
-           bg-gradient-to-br from-brand/10 to-accentNeo/10 backdrop-blur-xs
-           border border-white/10 shadow-soft hover:shadow-glow
-           transition-all duration-200"
+    class="flex flex-col justify-between flex-1 min-w-[200px] p-5 rounded-2xl
+           bg-[#13141a] border border-white/10 shadow-sm hover:shadow-lg
+           hover:border-brand/50 transition-all duration-300"
   >
-    <div class="text-sm text-text-med mb-1 tracking-wide uppercase">
-      Total Invest
+    <div class="flex items-center justify-between mb-3">
+      <span class="text-sm text-text-low uppercase tracking-wider">
+        Total Invest
+      </span>
+      <div class="p-2 rounded-lg bg-brand/10">
+        <i class="pi pi-chart-line text-accentNeo text-lg"></i>
+      </div>
     </div>
     <div
-      class="text-2xl font-semibold bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent"
+      class="text-3xl font-semibold bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent"
     >
       {{ totalInvest | number: '1.0-2' }} €
     </div>

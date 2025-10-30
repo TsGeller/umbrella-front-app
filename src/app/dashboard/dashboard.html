@@ -2,29 +2,47 @@
   <!-- Header -->
   <app-header></app-header>
 
-  <!-- Section principale -->
-  <main class="max-w-7xl mx-auto px-4 md:px-8 mt-8 space-y-10">
-    <!-- Résumé du wallet -->
-    <section>
-      <app-summary-wallet></app-summary-wallet>
-    </section>
-<div class="bg-card/90 border border-white/10 rounded-xl shadow-soft p-6 hover:shadow-glow transition-all">
-        <app-performance-chart></app-performance-chart>
-      </div>
-    <!-- Graphiques et répartition -->
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-fr">
-      
-      <div class="bg-card/90 border border-white/10 rounded-xl shadow-soft p-6 hover:shadow-glow transition-all">
-        <app-piechart></app-piechart>
-      </div>
-      <div class="bg-card/90 border border-white/10 rounded-xl shadow-soft p-6 hover:shadow-glow transition-all">
+  <!-- Conteneur principal -->
+  <main class="max-w-7xl mx-auto px-4 md:px-8 mt-10 space-y-10">
+
+    <!-- ======= SECTION 1 : Résumé global ======= -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <app-summary-wallet class="col-span-2"></app-summary-wallet>
+
+      <div
+        class="bg-[#13141a] border border-white/10 rounded-2xl p-6 shadow-sm
+               hover:shadow-lg hover:border-brand/50 transition-all duration-300"
+      >
         <app-owner-percentage></app-owner-percentage>
       </div>
     </section>
 
-    <!-- Liste des actions -->
-    <section class="bg-card/90 border border-white/10 rounded-xl shadow-soft p-6 hover:shadow-glow transition-all">
+    <!-- ======= SECTION 2 : Analyses et graphiques ======= -->
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 auto-rows-fr">
+      <!-- Performance chart (grande carte principale) -->
+      <div
+        class="lg:col-span-2 bg-[#13141a] border border-white/10 rounded-2xl
+               shadow-sm hover:shadow-lg hover:border-brand/50 transition-all duration-300 p-6"
+      >
+        <app-performance-chart></app-performance-chart>
+      </div>
+
+      <!-- Répartition (piechart) -->
+      <div
+        class="bg-[#13141a] border border-white/10 rounded-2xl p-6 shadow-sm
+               hover:shadow-lg hover:border-brand/50 transition-all duration-300"
+      >
+        <app-piechart></app-piechart>
+      </div>
+    </section>
+
+    <!-- ======= SECTION 3 : Liste des actions ======= -->
+    <section
+      class="bg-[#13141a] border border-white/10 rounded-2xl shadow-sm p-6
+             hover:shadow-lg hover:border-brand/50 transition-all duration-300"
+    >
       <app-stock-list></app-stock-list>
     </section>
+
   </main>
 </div>
