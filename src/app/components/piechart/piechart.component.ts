@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
-import { PortfolioService } from '../services/portfolio';
-import { Stock } from '../models/stock.model';
+import { PortfolioService } from '../../services/portfolio';
+import { Stock } from '../../models/stock.model';
 
 @Component({
   selector: 'app-piechart',

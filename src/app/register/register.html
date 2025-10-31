@@ -1,127 +1,122 @@
-<div class="min-h-screen flex items-center justify-center bg-surface-dark">
+<div
+  class="min-h-screen flex items-center justify-center 
+         bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100"
+>
   <div
-    class="w-full max-w-xl bg-surface-card/70 backdrop-blur-xs border border-white/10 rounded-2xl shadow-soft p-8 mx-4"
+    class="w-full max-w-lg bg-white/20 backdrop-blur-2xl border border-white/30 
+           rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] p-10 mx-4 transition-all duration-300"
   >
+    <!-- ===== HEADER ===== -->
     <div class="text-center mb-8">
       <h1
-        class="text-3xl font-semibold bg-gradient-to-r from-brand to-accent bg-clip-text text-transparent"
+        class="text-3xl font-semibold bg-gradient-to-r from-indigo-500 to-purple-400 
+               bg-clip-text text-transparent"
       >
         Créer un compte
       </h1>
-      <p class="text-text-med mt-2">
-        Rejoignez Umbrella Portfolio pour suivre vos investissements.
+      <p class="text-gray-600 text-sm mt-2">
+        Rejoignez <span class="font-medium text-indigo-600">Umbrella Portfolio</span> et commencez à suivre vos investissements intelligemment.
       </p>
     </div>
 
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-6">
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div class="sm:col-span-2">
-          <label class="block text-sm font-medium text-text-high mb-2"
-            >Nom d'utilisateur</label
-          >
+    <!-- ===== FORM ===== -->
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-5">
+      <div class="grid grid-cols-1 gap-4">
+        <!-- Username -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Nom d'utilisateur</label>
           <input
             type="text"
             formControlName="username"
             placeholder="Choisissez un pseudonyme"
-            class="w-full bg-surface-card border border-white/10 rounded-lg px-4 py-2 text-text-high focus:outline-none focus:ring-2 focus:ring-brand-light transition-all"
+            class="w-full bg-white/40 border border-white/30 rounded-xl px-4 py-2.5 text-gray-800 
+                   focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all"
           />
-          @if (
-            registerForm.get('username')?.invalid &&
-            registerForm.get('username')?.touched
-          ) {
-            <div class="text-danger text-sm mt-1">
-              Nom d'utilisateur requis (minimum 3 caractères).
-            </div>
+          @if (registerForm.get('username')?.invalid && registerForm.get('username')?.touched) {
+            <p class="text-red-500 text-xs mt-1">
+              Nom d'utilisateur requis (minimum 3 caractères)
+            </p>
           }
         </div>
 
-        <div class="sm:col-span-2">
-          <label class="block text-sm font-medium text-text-high mb-2"
-            >Email</label
-          >
+        <!-- Email -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Adresse email</label>
           <input
             type="email"
             formControlName="email"
-            placeholder="adresse@email.com"
-            class="w-full bg-surface-card border border-white/10 rounded-lg px-4 py-2 text-text-high focus:outline-none focus:ring-2 focus:ring-brand-light transition-all"
+            placeholder="exemple@email.com"
+            class="w-full bg-white/40 border border-white/30 rounded-xl px-4 py-2.5 text-gray-800 
+                   focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all"
           />
-          @if (
-            registerForm.get('email')?.invalid &&
-            registerForm.get('email')?.touched
-          ) {
-            <div class="text-danger text-sm mt-1">
-              Entrez une adresse email valide.
-            </div>
+          @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+            <p class="text-red-500 text-xs mt-1">
+              Entrez une adresse email valide
+            </p>
           }
         </div>
 
+        <!-- Password -->
         <div>
-          <label class="block text-sm font-medium text-text-high mb-2"
-            >Mot de passe</label
-          >
+          <label class="block text-sm font-medium text-gray-700 mb-1">Mot de passe</label>
           <input
             type="password"
             formControlName="password"
             placeholder="Minimum 8 caractères"
-            class="w-full bg-surface-card border border-white/10 rounded-lg px-4 py-2 text-text-high focus:outline-none focus:ring-2 focus:ring-brand-light transition-all"
+            class="w-full bg-white/40 border border-white/30 rounded-xl px-4 py-2.5 text-gray-800 
+                   focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all"
           />
-          @if (
-            registerForm.get('password')?.invalid &&
-            registerForm.get('password')?.touched
-          ) {
-            <div class="text-danger text-sm mt-1">
-              Mot de passe requis (minimum 8 caractères).
-            </div>
+          @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+            <p class="text-red-500 text-xs mt-1">
+              Mot de passe requis (minimum 8 caractères)
+            </p>
           }
         </div>
 
+        <!-- Confirm Password -->
         <div>
-          <label class="block text-sm font-medium text-text-high mb-2"
-            >Confirmer le mot de passe</label
-          >
+          <label class="block text-sm font-medium text-gray-700 mb-1">Confirmer le mot de passe</label>
           <input
             type="password"
             formControlName="confirmPassword"
             placeholder="Répétez votre mot de passe"
-            class="w-full bg-surface-card border border-white/10 rounded-lg px-4 py-2 text-text-high focus:outline-none focus:ring-2 focus:ring-brand-light transition-all"
+            class="w-full bg-white/40 border border-white/30 rounded-xl px-4 py-2.5 text-gray-800 
+                   focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all"
           />
-          @if (
-            registerForm.hasError('passwordsMismatch') &&
-            registerForm.get('confirmPassword')?.touched
-          ) {
-            <div class="text-danger text-sm mt-1">
-              Les mots de passe ne correspondent pas.
-            </div>
+          @if (registerForm.hasError('passwordsMismatch') && registerForm.get('confirmPassword')?.touched) {
+            <p class="text-red-500 text-xs mt-1">
+              Les mots de passe ne correspondent pas
+            </p>
           }
         </div>
       </div>
 
-      <label class="flex items-start space-x-3 text-sm text-text-med">
+      <!-- Accept Terms -->
+      <div class="flex items-start gap-2 mt-4">
         <input
           type="checkbox"
           formControlName="acceptTerms"
-          class="mt-1 rounded border-white/20 bg-surface-card text-brand focus:ring-brand"
+          class="mt-1 rounded border-white/40 bg-white/40 text-indigo-500 focus:ring-indigo-400"
         />
-        <span>
+        <label class="text-sm text-gray-700 leading-tight">
           J'accepte les
-          <a href="#" class="text-accent hover:underline">conditions
-          d'utilisation</a>
+          <a href="#" class="text-indigo-600 hover:underline">conditions d'utilisation</a>
           et la politique de confidentialité.
-        </span>
-      </label>
-      @if (
-        registerForm.get('acceptTerms')?.invalid &&
-        registerForm.get('acceptTerms')?.touched
-      ) {
-        <div class="text-danger text-sm -mt-3">
+        </label>
+      </div>
+      @if (registerForm.get('acceptTerms')?.invalid && registerForm.get('acceptTerms')?.touched) {
+        <p class="text-red-500 text-xs -mt-2">
           Vous devez accepter les conditions pour continuer.
-        </div>
+        </p>
       }
 
+      <!-- Submit Button -->
       <button
         type="submit"
         [disabled]="registerForm.invalid || isSubmitting"
-        class="w-full bg-gradient-to-r from-brand to-accent text-white font-medium rounded-xl px-4 py-2 mt-4 hover:shadow-glow transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        class="w-full bg-gradient-to-r from-indigo-500 to-purple-400 text-white font-medium 
+               rounded-xl px-4 py-2.5 mt-4 hover:scale-[1.02] hover:shadow-lg 
+               active:scale-[0.98] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         @if (isSubmitting) {
           Création du compte...
@@ -131,19 +126,22 @@
       </button>
     </form>
 
+    <!-- ===== Error Message ===== -->
     @if (errorMessage) {
       <div
-        class="text-danger text-center text-sm mt-4 bg-danger/10 border border-danger/30 rounded-lg py-2"
+        class="text-red-500 text-center text-sm mt-4 bg-red-100/40 border border-red-300/50 
+               rounded-lg py-2"
       >
         {{ errorMessage }}
       </div>
     }
 
-    <div class="text-center text-sm text-text-med mt-6">
+    <!-- ===== Footer ===== -->
+    <div class="text-center text-sm text-gray-700 mt-6">
       <span>Déjà inscrit ?</span>
-      <a [routerLink]="['/login']" class="text-accent hover:underline ml-1"
-        >Se connecter</a
-      >
+      <a [routerLink]="['/login']" class="text-indigo-600 font-medium hover:underline ml-1">
+        Se connecter
+      </a>
     </div>
   </div>
 </div>
