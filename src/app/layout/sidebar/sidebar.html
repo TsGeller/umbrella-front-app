@@ -1,0 +1,57 @@
+<aside
+  class="fixed left-6 top-6 bottom-6 w-46 px-6 py-8 flex flex-col justify-between
+         bg-white/10 backdrop-blur-3xl border border-white/20
+         shadow-[0_8px_40px_rgba(0,0,0,0.05)] rounded-3xl select-none"
+>
+  <!-- ===== Top Section ===== -->
+  <div>
+    <!-- Logo / Titre centré -->
+    <div class="flex justify-center mb-12">
+      <span class="font-semibold text-gray-800 text-lg tracking-wide text-center">
+        Umbrella
+      </span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="flex flex-col gap-6">
+      <!-- Home -->
+      <a
+        routerLink="/home"
+        routerLinkActive="active-link"
+        class="nav-item group"
+      >
+        <div class="flex items-center gap-3">
+          <img
+            src="home.svg"
+            alt="Home"
+            class="w-6 h-6 brightness-0 invert opacity-90 group-hover:opacity-100 transition-all"
+          />
+          <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">
+            Dashboard
+          </span>
+        </div>
+      </a>
+
+      <!-- Risk -->
+      <a
+        routerLink="/risk"
+        routerLinkActive="active-link"
+        class="nav-item group"
+      >
+        <div class="flex items-center gap-3">
+          <img
+            src="explore.svg"
+            alt="Risk"
+            class="w-6 h-6 brightness-0 invert opacity-90 group-hover:opacity-100 transition-all"
+          />
+          <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">
+            Risk
+          </span>
+        </div>
+      </a>
+    </nav>
+  </div>
+
+  <!-- ===== Footer ===== -->
+  <p class="text-xs text-gray-600 opacity-70 mt-10 text-center">&copy; 2025 Umbrella</p>
+</aside>

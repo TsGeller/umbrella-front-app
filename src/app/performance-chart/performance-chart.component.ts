@@ -11,7 +11,6 @@ import { PortfolioService } from '../services/portfolio';
 export class PerformanceChart implements OnInit {
   chartData: any;
   chartOptions: any;
-  chartSpyddeData: any;
   heightChart = '300px';
 
   constructor(private portfolioService: PortfolioService) {
@@ -21,44 +20,56 @@ export class PerformanceChart implements OnInit {
       plugins: {
         legend: {
           labels: {
-            color: '#E8ECF2', // texte clair
-            font: { family: 'Inter', size: 12 },
+            color: '#444',
+            font: { family: 'Inter', size: 12, weight: 500 },
+            boxWidth: 10,
+            usePointStyle: true,
           },
         },
         tooltip: {
-          backgroundColor: 'rgba(20,25,40,0.9)',
-          titleColor: '#E8ECF2',
-          bodyColor: '#9AA5B8',
-          borderWidth: 0,
+          backgroundColor: 'rgba(255,255,255,0.95)',
+          titleColor: '#111',
+          bodyColor: '#333',
+          borderColor: 'rgba(0,0,0,0.05)',
+          borderWidth: 1,
           padding: 10,
+          titleFont: { size: 13, weight: '600' },
+          bodyFont: { size: 12 },
+        },
+      },
+      elements: {
+        point: {
+          radius: 0, // ✅ supprime les points
+          hoverRadius: 0, // pas d’effet au survol
+        },
+        line: {
+          borderJoinStyle: 'round',
         },
       },
       scales: {
         x: {
-          ticks: { color: '#9AA5B8', font: { family: 'Inter' } },
-          grid: { color: 'rgba(255,255,255,0.05)' },
+          ticks: { color: '#555', font: { family: 'Inter', size: 11 } },
+          grid: { color: 'rgba(0,0,0,0.05)' },
         },
         y: {
-          ticks: { color: '#9AA5B8', font: { family: 'Inter' } },
-          grid: { color: 'rgba(255,255,255,0.05)' },
+          ticks: { color: '#555', font: { family: 'Inter', size: 11 } },
+          grid: { color: 'rgba(0,0,0,0.05)' },
         },
         y1: {
           position: 'right',
-          ticks: { color: '#9AA5B8', font: { family: 'Inter' } },
-          grid: { drawOnChartArea: false, color: 'rgba(255,255,255,0.05)' },
+          ticks: { color: '#555', font: { family: 'Inter', size: 11 } },
+          grid: { drawOnChartArea: false, color: 'rgba(0,0,0,0.05)' },
         },
       },
     };
   }
 
   ngOnInit(): void {
-    this.portfolioService.getPriceForTickerSpydde().subscribe((response: any) => {
-      const spyddeData = response;
-      console.log('Données SPY.DDE reçues :', spyddeData);
-      
-      this.portfolioService.getPortfolio().subscribe((response: any) => {
-        const data = response?.data;
-        console.log('Données de portefeuille reçues :', data);
+    this.portfolioService.getPriceForTickerSpydde().subscribe((spyResponse: any) => {
+      const spyData = spyResponse?.map((d: any) => parseFloat(d.nav)).filter((v: number) => !isNaN(v));
+
+      this.portfolioService.getPortfolio().subscribe((portfolioResponse: any) => {
+        const data = portfolioResponse?.data;
         if (!Array.isArray(data) || data.length === 0) return;
 
         const labels = data.map((entry) => {
@@ -66,39 +77,31 @@ export class PerformanceChart implements OnInit {
           return `${date.getDate()}/${date.getMonth() + 1}`;
         });
 
-        const values = data
-          .map((entry: any) => parseFloat(entry.nav_per_unit))
-          .filter((v: number) => !isNaN(v));
-          console.log('avant traitement  :', spyddeData);
-        const valuesspy = spyddeData
-          .map((entry: any) => parseFloat(entry.nav))
-          .filter((v:number ) => !isNaN(v));
-          console.log('Données SPY.DDE traitées :', valuesspy);
+        const values = data.map((entry: any) => parseFloat(entry.nav_per_unit)).filter((v: number) => !isNaN(v));
+
         this.chartData = {
           labels,
           datasets: [
             {
-              label: 'NAV per Unit',
+              label: 'Portfolio Value',
               data: values,
-              borderColor: '#5A6CFF', // brand color
-              backgroundColor: 'rgba(90,108,255,0.15)',
-              pointBackgroundColor: '#20E3B2',
-              pointBorderColor: '#141A29',
+              borderColor: 'rgba(90,108,255,0.7)', // ✅ bleu adouci
+              backgroundColor: 'rgba(90,108,255,0.08)', // léger remplissage
               borderWidth: 2,
               fill: true,
               tension: 0.35,
-              yAxisID: 'y'
+              yAxisID: 'y',
             },
             {
-              label: 'SNP 500 (SPY.DDE)',
-              data: valuesspy, 
-              borderColor: '#FF6B6B', // red color
-              backgroundColor: 'rgba(255,107,107,0.15)',
-              pointBackgroundColor: '#FF6B6B',
-              pointBorderColor: '#141A29',
+              label: 'S&P 500 (SPY.DDE)',
+              data: spyData,
+              borderColor: 'rgba(255,107,107,0.6)', // ✅ rouge adouci
+              backgroundColor: 'rgba(255,107,107,0.05)', // plus subtil
               borderWidth: 2,
-              yAxisID: 'y1'
-            }
+              fill: true,
+              tension: 0.35,
+              yAxisID: 'y1',
+            },
           ],
         };
       });

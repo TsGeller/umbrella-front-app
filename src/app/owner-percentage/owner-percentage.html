@@ -1,42 +1,67 @@
 <div
-  class="rounded-2xl p-6 bg-[#13141a] border border-white/10 shadow-sm 
-         hover:shadow-lg hover:border-brand/50 transition-all duration-300"
+  class="relative flex flex-col justify-between rounded-2xl p-6
+         backdrop-blur-xl bg-[rgba(235,235,240,0.7)] border border-white/40
+         shadow-[0_4px_16px_rgba(0,0,0,0.08)]
+         hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)]
+         transition-all duration-300 hover:scale-[1.01]"
 >
+  <!-- ===== Header ===== -->
   <div class="flex items-center justify-between mb-5">
     <h2
-      class="text-2xl font-semibold bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent"
+      class="text-lg md:text-xl font-semibold tracking-wide
+             bg-gradient-to-r from-indigo-500 to-purple-400 bg-clip-text text-transparent"
     >
-      Owners
+      Portfolio Owners
     </h2>
 
-    <div class="p-2 rounded-xl bg-brand/10">
-      <i class="pi pi-users text-accentNeo text-lg"></i>
+    <div class="p-2 rounded-xl bg-indigo-500/10">
+      <i class="pi pi-users text-indigo-500 text-lg"></i>
     </div>
   </div>
 
+  <!-- ===== Liste des owners ===== -->
   @if (users.length > 0) {
     <div class="space-y-3">
       @for (user of users; track user.id) {
         <div
-          class="flex justify-between items-center bg-[#1a1b22] border border-white/5 
-                 rounded-xl px-4 py-3 hover:bg-[#1f2028] transition-all duration-200"
+          class="flex justify-between items-center rounded-xl px-4 py-3
+                 bg-white/50 border border-white/40 backdrop-blur-md
+                 hover:bg-white/70 hover:shadow-md transition-all duration-300"
         >
-          <div>
-            <span class="text-text-med font-medium">
+          <!-- Infos utilisateur -->
+          <div class="flex flex-col">
+            <span class="text-gray-800 font-semibold text-sm">
               {{ user.first_name || user.username }}
             </span>
-            <span class="text-xs text-text-low block">
+            <span class="text-xs text-gray-500">
               {{ getPercentage(user) | number:'1.0-2' }} %
             </span>
           </div>
 
-          <span class="font-semibold text-accentNeo">
-            {{ user.value | number:'1.0-2' }} €
-          </span>
+          <!-- Montant -->
+          <div class="text-right">
+            <span class="text-gray-900 font-semibold text-base">
+              {{ user.value | number:'1.0-2' }} €
+            </span>
+          </div>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="h-2 bg-white/40 rounded-full overflow-hidden">
+          <div
+            class="h-full bg-gradient-to-r from-indigo-500 to-purple-400"
+            [style.width.%]="getPercentage(user)"
+          ></div>
         </div>
       }
     </div>
   } @else {
-    <p class="text-text-low text-sm italic">Chargement des propriétaires...</p>
+    <p class="text-gray-500 text-sm italic">Chargement des propriétaires...</p>
   }
+
+  <!-- ===== Lueur subtile ===== -->
+  <div
+    class="absolute inset-0 pointer-events-none rounded-2xl
+           bg-gradient-to-tr from-white/20 via-transparent to-transparent"
+  ></div>
 </div>

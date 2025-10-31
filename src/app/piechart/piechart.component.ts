@@ -12,19 +12,18 @@ import { Stock } from '../models/stock.model';
 export class Piechart implements OnInit {
   chartData: any;
   chartOptions: any;
-  heightChart = '250px';
+  heightChart = '300px';
   stocks: Stock[] = [];
 
   constructor(private service: PortfolioService) {}
 
   ngOnInit(): void {
-    // Laisse un délai si le service charge lentement
     setTimeout(() => {
       this.service.portfolio$.subscribe((portfolio) => {
         this.stocks = portfolio.getStcokComposition();
         this.initPiechart();
       });
-    }, 1000);
+    }, 800);
   }
 
   initPiechart(): void {
@@ -37,24 +36,17 @@ export class Piechart implements OnInit {
         {
           data: values,
           backgroundColor: [
-            '#4F46E5', // Indigo
-        '#06B6D4', // Cyan clair
-        '#22C55E', // Vert émeraude
-        '#EAB308', // Jaune doré
-        '#F97316', // Orange doux
-        '#EC4899', // Rose magenta
-        '#8B5CF6', // Violet pastel
+            'rgba(90,108,255,0.75)',   // Indigo doux
+            'rgba(100,220,220,0.75)',  // Cyan gris
+            'rgba(130,200,255,0.75)',  // Bleu clair
+            'rgba(200,180,255,0.75)',  // Lavande
+            'rgba(255,160,180,0.75)',  // Rose pâle
+            'rgba(255,210,120,0.75)',  // Jaune doux
+            'rgba(160,240,160,0.75)',  // Vert clair
           ],
-          hoverBackgroundColor: [
-            '#7C84FF',
-            '#41EBC8',
-            '#A59EFF',
-            '#28F5B0',
-            '#FFC14A',
-            '#FF6A6A',
-          ],
-          borderColor: '#0B0F1A',
-          borderWidth: 2,
+          borderColor: 'rgba(255,255,255,0.7)',
+          borderWidth: 1,
+          hoverOffset: 8,
         },
       ],
     };
@@ -62,23 +54,33 @@ export class Piechart implements OnInit {
     this.chartOptions = {
       plugins: {
         legend: {
-          position: 'top',
+          position: 'right',
+          align: 'center',
           labels: {
-            color: '#E8ECF2', // texte clair
+            color: '#444',
             font: {
               family: 'Inter',
               size: 12,
+              weight: 500,
             },
-            padding: 16,
+            padding: 10,
+            usePointStyle: true,
+            boxWidth: 10,
           },
         },
         tooltip: {
-          backgroundColor: 'rgba(20,25,40,0.9)',
-          titleColor: '#E8ECF2',
-          bodyColor: '#9AA5B8',
-          borderWidth: 0,
-          padding: 10,
+          backgroundColor: 'rgba(255,255,255,0.95)',
+          titleColor: '#111',
+          bodyColor: '#333',
+          borderColor: 'rgba(0,0,0,0.05)',
+          borderWidth: 1,
+          padding: 8,
+          titleFont: { size: 13, weight: '600' },
+          bodyFont: { size: 12 },
         },
+      },
+      layout: {
+        padding: { top: 10, bottom: 10 },
       },
     };
   }
