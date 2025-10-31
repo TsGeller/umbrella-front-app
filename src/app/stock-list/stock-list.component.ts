@@ -36,4 +36,9 @@ export class StockList implements OnInit {
       return total + (stock.price * stock.quantity);
     }, 0);
   }
+  getValuePercentage(stock: any): number {
+  const total = this.getTotalValue();
+  if (!total) return 0;
+  return ((stock.price * stock.quantity) / total) * 100;
+}
 }

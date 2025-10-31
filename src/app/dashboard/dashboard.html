@@ -1,48 +1,47 @@
-<div class="min-h-screen bg-dark text-text-high font-sans pb-12">
+<div class="min-h-screen flex flex-col">
   <!-- Header -->
   <app-header></app-header>
 
   <!-- Conteneur principal -->
-  <main class="max-w-7xl mx-auto px-4 md:px-8 mt-10 space-y-10">
-
-    <!-- ======= SECTION 1 : Résumé global ======= -->
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <app-summary-wallet class="col-span-2"></app-summary-wallet>
-
-      <div
-        class="bg-[#13141a] border border-white/10 rounded-2xl p-6 shadow-sm
-               hover:shadow-lg hover:border-brand/50 transition-all duration-300"
-      >
-        <app-owner-percentage></app-owner-percentage>
-      </div>
+  <main class="max-w-[1500px] mx-auto px-2 md:px-4 mt-2 space-y-4 w-full">
+    
+    <!-- ===== SECTION 1 : Résumé global ===== -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-2">
+      <app-summary-wallet class="col-span-2 glass-card"></app-summary-wallet>
     </section>
 
-    <!-- ======= SECTION 2 : Analyses et graphiques ======= -->
-    <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 auto-rows-fr">
-      <!-- Performance chart (grande carte principale) -->
+    <!-- ===== SECTION 2 : Charts ===== -->
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-3 auto-rows-fr">
+      <!-- Performance chart -->
       <div
-        class="lg:col-span-2 bg-[#13141a] border border-white/10 rounded-2xl
-               shadow-sm hover:shadow-lg hover:border-brand/50 transition-all duration-300 p-6"
+        class="lg:col-span-2 glass-card p-4 transition-all duration-200 hover:scale-[1.01] hover:shadow-md"
       >
         <app-performance-chart></app-performance-chart>
       </div>
 
-      <!-- Répartition (piechart) -->
+      <!-- Pie chart -->
       <div
-        class="bg-[#13141a] border border-white/10 rounded-2xl p-6 shadow-sm
-               hover:shadow-lg hover:border-brand/50 transition-all duration-300"
+        class="glass-card p-4 transition-all duration-200 hover:scale-[1.01] hover:shadow-md"
       >
         <app-piechart></app-piechart>
       </div>
     </section>
 
-    <!-- ======= SECTION 3 : Liste des actions ======= -->
-    <section
-      class="bg-[#13141a] border border-white/10 rounded-2xl shadow-sm p-6
-             hover:shadow-lg hover:border-brand/50 transition-all duration-300"
-    >
-      <app-stock-list></app-stock-list>
-    </section>
+    <!-- ===== SECTION 3 : Portfolio + Owners ===== -->
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-3 auto-rows-fr">
+      <!-- Stock list -->
+      <div
+        class="lg:col-span-2 glass-card p-4 transition-all duration-200 hover:scale-[1.01] hover:shadow-md"
+      >
+        <app-stock-list></app-stock-list>
+      </div>
 
+      <!-- Owners -->
+      <div
+        class="glass-card p-4 transition-all duration-200 hover:scale-[1.01] hover:shadow-md"
+      >
+        <app-owner-percentage></app-owner-percentage>
+      </div>
+    </section>
   </main>
 </div>

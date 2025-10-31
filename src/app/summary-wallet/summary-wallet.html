@@ -1,43 +1,61 @@
-<div class="flex flex-wrap gap-5 mt-4">
-  <!-- Total Value -->
+<div class="flex flex-wrap gap-6 mt-4">
+
+  <!-- TOTAL VALUE -->
   <div
-    class="flex flex-col justify-between flex-1 min-w-[200px] p-5 rounded-2xl
-           bg-[#13141a] border border-white/10 shadow-sm hover:shadow-lg
-           hover:border-brand/50 transition-all duration-300"
+    class="relative flex flex-col justify-between flex-1 min-w-[240px] overflow-hidden
+           rounded-2xl p-3 backdrop-blur-xl text-gray-800
+           bg-white/80 border border-white/60 shadow-[0_4px_12px_rgba(0,0,0,0.08)]
+           hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all duration-300 hover:scale-[1.01]"
   >
-    <div class="flex items-center justify-between mb-3">
-      <span class="text-sm text-text-low uppercase tracking-wider">
+    <div class="flex items-center justify-between mb-2">
+      <span class="text-xs uppercase tracking-wider text-gray-500 font-medium">
         Total Value
       </span>
-      <div class="p-2 rounded-lg bg-brand/10">
-        <i class="pi pi-wallet text-brand text-lg"></i>
-      </div>
+      <i class="pi pi-wallet text-gray-600 text-lg"></i>
     </div>
+
     <div
-      class="text-3xl font-semibold bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent"
+      class="text-2xl font-semibold text-gray-900 tracking-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.1)]"
     >
       {{ walletValue | number: '1.0-2' }} €
     </div>
+
+    <div
+      class="absolute inset-0 pointer-events-none rounded-2xl bg-gradient-to-tr from-white/40 via-transparent to-transparent"
+    ></div>
   </div>
 
-  <!-- Total Invest -->
+  <!-- DAILY PNL -->
   <div
-    class="flex flex-col justify-between flex-1 min-w-[200px] p-5 rounded-2xl
-           bg-[#13141a] border border-white/10 shadow-sm hover:shadow-lg
-           hover:border-brand/50 transition-all duration-300"
+    class="relative flex flex-col justify-between flex-1 min-w-[240px] overflow-hidden
+           rounded-2xl p-3 backdrop-blur-xl text-gray-800
+           bg-white/80 border border-white/60 shadow-[0_4px_12px_rgba(0,0,0,0.08)]
+           hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all duration-300 hover:scale-[1.01]"
   >
-    <div class="flex items-center justify-between mb-3">
-      <span class="text-sm text-text-low uppercase tracking-wider">
-        Total Invest
+    <div class="flex items-center justify-between mb-2">
+      <span class="text-xs uppercase tracking-wider text-gray-500 font-medium">
+        PnL Today
       </span>
-      <div class="p-2 rounded-lg bg-brand/10">
-        <i class="pi pi-chart-line text-accentNeo text-lg"></i>
-      </div>
+      <i
+        class="pi"
+        [ngClass]="dailyPnL >= 0 ? 'pi-arrow-up-right text-emerald-500 text-lg' : 'pi-arrow-down-right text-rose-500 text-lg'"
+      ></i>
     </div>
+
+    <div class="text-2xl font-semibold flex items-baseline gap-1">
+      <span
+        [ngClass]="dailyPnL >= 0 ? 'text-emerald-600' : 'text-rose-600'"
+      >
+        {{ dailyPnL >= 0 ? '+' : '' }}{{ dailyPnL | number: '1.0-2' }} €
+      </span>
+      <span class="text-xs text-gray-500">
+        ({{ pnlPercentage | number: '1.1-1' }}%)
+      </span>
+    </div>
+
     <div
-      class="text-3xl font-semibold bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent"
-    >
-      {{ totalInvest | number: '1.0-2' }} €
-    </div>
+      class="absolute inset-0 pointer-events-none rounded-2xl bg-gradient-to-tr from-white/40 via-transparent to-transparent"
+    ></div>
   </div>
+
 </div>

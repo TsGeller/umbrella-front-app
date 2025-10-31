@@ -1,16 +1,33 @@
 <div
-  class="rounded-2xl p-6 bg-gradient-to-br from-brand/10 to-accentNeo/10
-         backdrop-blur-xs border border-white/10 shadow-soft text-text-high
-         hover:shadow-glow transition-all duration-200"
+  class="relative flex flex-col justify-between rounded-2xl p-6
+         backdrop-blur-xl bg-[rgba(240,240,245,0.7)] border border-white/40
+         shadow-[0_4px_16px_rgba(0,0,0,0.08)]
+         hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all duration-300 hover:scale-[1.01]"
 >
-  <h2 class="text-lg font-semibold mb-4 bg-gradient-to-r from-brand to-accentNeo bg-clip-text text-transparent">
-    Chart Performance
-  </h2>
+  <!-- ===== Titre ===== -->
+  <div class="flex items-center justify-between mb-4">
+    <h2
+      class="text-lg md:text-xl font-semibold text-gray-800 tracking-wide
+             bg-gradient-to-r from-indigo-500 to-purple-400 bg-clip-text text-transparent"
+    >
+      Performance Chart
+    </h2>
+    <i class="pi pi-chart-line text-gray-500 text-xl"></i>
+  </div>
 
-  <p-chart
-    type="line"
-    [data]="chartData"
-    [options]="chartOptions"
-    [height]="heightChart"
-  ></p-chart>
+  <!-- ===== Chart ===== -->
+  <div class="h-[300px]">
+    <p-chart
+      type="line"
+      [data]="chartData"
+      [options]="chartOptions"
+      [height]="heightChart"
+    ></p-chart>
+  </div>
+
+  <!-- ===== Lueur décorative subtile ===== -->
+  <div
+    class="absolute inset-0 pointer-events-none rounded-2xl
+           bg-gradient-to-tr from-white/20 via-transparent to-transparent"
+  ></div>
 </div>
