@@ -1,0 +1,40 @@
+<div class="min-h-screen flex flex-col space-y-6 md:space-y-8">
+  <!-- ======= SECTION 1 : Résumé global ======= -->
+  <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <app-summary-wallet class="col-span-2"></app-summary-wallet>
+  </section>
+
+  <!-- ======= SECTION 2 : Analyses et graphiques ======= -->
+  <section class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+    <!-- Performance chart -->
+    <div
+      class="lg:col-span-2 glass-card p-6 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg"
+    >
+      <app-performance-chart></app-performance-chart>
+    </div>
+
+    <!-- Répartition -->
+    <div
+      class="glass-card p-6 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg"
+    >
+      <app-piechart></app-piechart>
+    </div>
+  </section>
+
+  <!-- ======= SECTION 3 : Portefeuille et Owners ======= -->
+  <section class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+    <!-- Stock List (large) -->
+    <div
+      class="lg:col-span-2 glass-card p-6 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg"
+    >
+      <app-stock-list></app-stock-list>
+    </div>
+
+    <!-- Owners -->
+    <div
+      class="glass-card p-6 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg"
+    >
+      <app-owner-percentage></app-owner-percentage>
+    </div>
+  </section>
+</div>

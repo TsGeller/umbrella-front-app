@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
-export class Login implements OnInit {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   errorMessage: string = '';
   infoMessage: string = '';
@@ -51,4 +51,7 @@ export class Login implements OnInit {
       },
     });
   }
+  continueAsGuest() {
+  this.router.navigate(['/home']);
+}
 }

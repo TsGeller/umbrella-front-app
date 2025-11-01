@@ -2,8 +2,8 @@ import { CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
-import { PortfolioService } from '../services/portfolio';
-import { Stock } from '../models/stock.model';
+import { PortfolioService } from '../../services/portfolio';
+import { Stock } from '../../models/stock.model';
 
 @Component({
   selector: 'app-stock-list',

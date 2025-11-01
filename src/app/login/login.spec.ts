@@ -3,15 +3,15 @@ import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
-import { Login } from './login.component';
+import { LoginComponent } from './login.component';
 
 describe('Login', () => {
-  let component: Login;
-  let fixture: ComponentFixture<Login>;
+  let component: LoginComponent;
+  let fixture: ComponentFixture<LoginComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Login, RouterTestingModule],
+      imports: [LoginComponent, RouterTestingModule],
       providers: [
         {
           provide: ActivatedRoute,
@@ -23,7 +23,7 @@ describe('Login', () => {
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Login);
+    fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

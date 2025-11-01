@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
-import { PortfolioService } from '../services/portfolio';
+import { PortfolioService } from '../../services/portfolio';
 
 @Component({
   selector: 'app-performance-chart',

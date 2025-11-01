@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PortfolioService } from '../services/portfolio';
+import { PortfolioService } from '../../services/portfolio';
 import { CommonModule, DecimalPipe } from '@angular/common';
 
 @Component({

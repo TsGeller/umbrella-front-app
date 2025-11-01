@@ -2,16 +2,16 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
-import { Register } from './register.component';
+import { RegisterComponent } from './register.component';
 import { AuthService } from '../services/auth.service';
 
 describe('Register', () => {
-  let component: Register;
-  let fixture: ComponentFixture<Register>;
+  let component: RegisterComponent;
+  let fixture: ComponentFixture<RegisterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Register, RouterTestingModule],
+      imports: [RegisterComponent, RouterTestingModule],
       providers: [
         {
           provide: AuthService,
@@ -22,7 +22,7 @@ describe('Register', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Register);
+    fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,12 +1,28 @@
 import { Routes } from '@angular/router';
-import { Login } from './login/login.component';
-import { Dashboard } from './dashboard/dashboard.component';
-import { Register } from './register/register.component';
+import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
+import { HomeComponent } from './pages/home/home.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { RiskComponent } from './pages/risk/risk.component';
 
 export const routes: Routes = [
-  { path: 'login', component: Login },
-  { path: 'register', component: Register },
-  { path: 'dashboard', component: Dashboard },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },  // route par défaut
-  { path: '**', redirectTo: 'login' } // si route inexistante
+  {
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent },
+      { path: 'risk', component: RiskComponent },
+    ],
+  },
+  {
+    path: '',
+    component: AuthLayoutComponent,
+    children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+    ],
+  },
+  { path: '**', redirectTo: 'home' },
 ];
