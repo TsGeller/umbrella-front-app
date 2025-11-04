@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { RiskComponent } from './pages/risk/risk.component';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 
 export const routes: Routes = [
   {
@@ -14,6 +15,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'risk', component: RiskComponent },
+      { path: 'change-password', component: ChangePasswordComponent },
     ],
   },
   {

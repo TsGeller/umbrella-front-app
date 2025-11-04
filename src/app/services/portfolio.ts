@@ -44,6 +44,17 @@ export class PortfolioService {
         })
       );
   }
+  getPortfolioUsers(): Observable<any> {
+    return this.http
+      .get(`${this.baseUrl}/users/get_portfolio_users`)
+      .pipe(
+        map((data) => data),
+        catchError((error) => {
+          console.error('Erreur de récupération des propriétaires :', error);
+          return of(null);
+        })
+      );
+  }
   getValueForUser(id: number): Observable<any> {
     return this.http
       .get(

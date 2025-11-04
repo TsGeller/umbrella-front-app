@@ -68,6 +68,18 @@ export class AuthService {
       });
   }
 
+  /** 🔁 Change le mot de passe */
+  changePassword(currentPassword: string, newPassword: string): Observable<any> {
+    return this.http.post(
+      `${this.apiUrl}/users/change_password/`,
+      {
+        current_password: currentPassword,
+        new_password: newPassword,
+      },
+      { withCredentials: true }
+    );
+  }
+
   /** 👤 Retourne le nom de l’utilisateur connecté */
   getCurrentUsername(): string | null {
     return this.currentUserSubject.value || localStorage.getItem('username');

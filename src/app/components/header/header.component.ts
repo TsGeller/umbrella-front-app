@@ -51,6 +51,12 @@ export class Header implements OnInit {
   this.router.navigate(['/login']);
 }
 
+  goToChangePassword(): void {
+    this.isMobileMenuOpen = false;
+    this.isProfileMenuOpen = false;
+    this.router.navigate(['/change-password']);
+  }
+
   logout() {
   this.isProfileMenuOpen = false;
   this.isMobileMenuOpen = false;

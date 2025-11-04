@@ -58,4 +58,44 @@
     ></div>
   </div>
 
+  <!-- USER OWNERSHIP -->
+  <div
+    class="relative flex flex-col justify-between flex-1 min-w-[240px] overflow-hidden
+           rounded-2xl p-3 backdrop-blur-xl text-gray-800
+           bg-white/80 border border-white/60 shadow-[0_4px_12px_rgba(0,0,0,0.08)]
+           hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all duration-300 hover:scale-[1.01]"
+  >
+    <div class="flex items-center justify-between mb-2">
+      <span class="text-xs uppercase tracking-wider text-gray-500 font-medium">
+        Your shares
+      </span>
+      <i class="pi pi-user text-gray-600 text-lg"></i>
+    </div>
+
+    @if (ownershipLoading) {
+      <div class="text-sm text-gray-500">Loading...</div>
+    } @else {
+      @if (userOwnedValue !== null) {
+        <div
+          class="text-2xl font-semibold text-gray-900 tracking-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.1)]"
+        >
+          {{ userOwnedValue | number: '1.0-2' }} €
+        </div>
+        @if (userOwnedPercentage !== null) {
+          <div class="text-xs text-gray-500">
+            {{ userOwnedPercentage | number: '1.0-2' }} % of Wallet
+          </div>
+        }
+      } @else {
+        <div class="text-sm text-gray-500">
+          {{ ownershipError || 'No positions detected.' }}
+        </div>
+      }
+    }
+
+    <div
+      class="absolute inset-0 pointer-events-none rounded-2xl bg-gradient-to-tr from-white/40 via-transparent to-transparent"
+    ></div>
+  </div>
+
 </div>
