@@ -149,7 +149,7 @@ export class PortfolioService {
   }
   getPriceForTickerSpydde(): Observable<any> {
     return this.http
-      .get<any>(`${this.baseUrl}/stock_information/get_prices/?ticker=SPYD.DE&start_date=${this.getDateMinusDays(
+      .get<any>(`${this.baseUrl}/stock_information/get_prices/?ticker=SPY&start_date=${this.getDateMinusDays(
           180
         )}&end_date=${this.getDateMinusDays(1)}`)
       .pipe(

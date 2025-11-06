@@ -93,7 +93,7 @@ export class PerformanceChart implements OnInit {
               yAxisID: 'y',
             },
             {
-              label: 'S&P 500 (SPY.DDE)',
+              label: 'S&P 500 (SPY)',
               data: spyData,
               borderColor: 'rgba(255,107,107,0.6)', // ✅ rouge adouci
               backgroundColor: 'rgba(255,107,107,0.05)', // plus subtil
