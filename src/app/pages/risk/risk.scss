@@ -13,6 +13,21 @@
   backdrop-filter: blur(18px);
 }
 
+.risk-chart-wrapper {
+  padding: 1.5rem;
+  border-radius: 1.75rem;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.1);
+  backdrop-filter: blur(18px);
+}
+
+.risk-chart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
 .placeholder-card {
   display: flex;
   flex-direction: column;
@@ -35,6 +50,12 @@
 }
 
 :host-context(.theme-dark) .risk-summary-wrapper {
+  background: rgba(13, 18, 33, 0.92);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px rgba(3, 5, 15, 0.6);
+}
+
+:host-context(.theme-dark) .risk-chart-wrapper {
   background: rgba(13, 18, 33, 0.92);
   border-color: rgba(255, 255, 255, 0.08);
   box-shadow: 0 20px 40px rgba(3, 5, 15, 0.6);

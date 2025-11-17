@@ -1,0 +1,11 @@
+<div class="risk-chart-card" *ngIf="!loading && !error; else stateTemplate">
+  <h3>Risk Contribution</h3>
+  <div class="chart-wrapper">
+    <p-chart type="bar" [data]="chartData" [options]="chartOptions" height="320px"></p-chart>
+  </div>
+</div>
+
+<ng-template #stateTemplate>
+  <div class="risk-chart-card state" *ngIf="loading">Loading contribution chart...</div>
+  <div class="risk-chart-card state state--error" *ngIf="!loading && error">{{ error }}</div>
+</ng-template>

@@ -21,6 +21,14 @@ export interface RiskMetric {
   CVaR_95_1d_amount: number;
   CVaR_99_1d: number;
   CVaR_99_1d_amount: number;
+  returns?: number;
+}
+
+export interface RiskContribution {
+  id: number;
+  date: string;
+  ticker: string;
+  risk_contribution_pct: number;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -32,5 +40,12 @@ export class RiskService {
   getPortfolioRiskMetrics(startDate: string): Observable<RiskMetric[]> {
     const url = `${this.baseUrl}/risk_management/get_portfolio_risk_metrics/?start_date=${startDate}`;
     return this.http.get<RiskMetricResponse>(url, { withCredentials: true }).pipe(map(res => res.data || []));
+  }
+
+  getStockContributionRiskMetrics(date: string): Observable<RiskContribution[]> {
+    const url = `${this.baseUrl}/risk_management/get_stock_contribution_risk_metrics/?date=${date}`;
+    return this.http
+      .get<{ status: string; data: RiskContribution[] }>(url, { withCredentials: true })
+      .pipe(map(res => res.data || []));
   }
 }
