@@ -1,0 +1,14 @@
+<div class="risk-summary" *ngIf="!loading && !error; else stateTemplate">
+  <div class="metric-card" *ngFor="let card of cards">
+    <span class="metric-label">{{ card.label }}</span>
+    <span class="metric-value">{{ card.value }}</span>
+    @if (card.subLabel) {
+      <span class="metric-sublabel">{{ card.subLabel }}</span>
+    }
+  </div>
+</div>
+
+<ng-template #stateTemplate>
+  <div class="state" *ngIf="loading">Loading risk metrics...</div>
+  <div class="state state--error" *ngIf="!loading && error">{{ error }}</div>
+</ng-template>
