@@ -1,0 +1,106 @@
+.transactions-card {
+  padding: 1.75rem;
+  border-radius: 1.75rem;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.12);
+  backdrop-filter: blur(18px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.transactions-header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: rgba(17, 24, 39, 0.9);
+}
+
+.transactions-header p {
+  margin: 0.2rem 0 0;
+  color: rgba(17, 24, 39, 0.65);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(17, 24, 39, 0.6);
+}
+
+.mat-table-wrapper {
+  overflow-x: auto;
+}
+
+.transactions-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.6rem;
+}
+
+.transactions-table th {
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: rgba(17, 24, 39, 0.55);
+  border-bottom: none;
+}
+
+.transactions-table td {
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  padding: 0.75rem 0.9rem;
+  font-size: 0.9rem;
+}
+
+.transactions-table tr td:first-child {
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+
+.transactions-table tr td:last-child {
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.ticker {
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.highlight {
+  color: rgba(90, 108, 255, 0.95);
+  font-weight: 600;
+}
+
+.state {
+  text-align: center;
+  color: rgba(17, 24, 39, 0.65);
+}
+
+.state--error {
+  color: #dc2626;
+}
+
+:host-context(.theme-dark) .transactions-card {
+  background: rgba(13, 18, 33, 0.92);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 60px rgba(3, 5, 15, 0.65);
+  color: rgba(229, 233, 255, 0.92);
+}
+
+:host-context(.theme-dark) .transactions-table td {
+  background: rgba(25, 32, 56, 0.9);
+}
+
+:host-context(.theme-dark) .transactions-table th,
+:host-context(.theme-dark) .eyebrow,
+:host-context(.theme-dark) .transactions-header p {
+  color: rgba(229, 233, 255, 0.65);
+}

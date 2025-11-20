@@ -49,7 +49,7 @@ export class RiskCvarChartComponent implements OnInit {
 
     const labels = sortedMetrics.map(item => this.formatLabel(item.date));
     const returnsSeries = sortedMetrics.map(item => returnsMap.get(item.date) ?? null);
-    const cvarSeries = sortedMetrics.map(item => -Math.abs(item.CVaR_95_1d_amount));
+    const varSeries = sortedMetrics.map(item => -Math.abs(item.VaR_95_1d ?? 0) * 100);
 
     this.chartData = {
       labels,
@@ -66,14 +66,14 @@ export class RiskCvarChartComponent implements OnInit {
           yAxisID: 'y'
         },
         {
-          label: 'CVaR 95% (€)',
-          data: cvarSeries,
+          label: 'VaR 95% %',
+          data: varSeries,
           borderColor: 'rgba(255,112,146,0.9)',
           backgroundColor: 'rgba(255,112,146,0.2)',
           pointRadius: 3,
           tension: 0.35,
           fill: false,
-          yAxisID: 'y1'
+          yAxisID: 'y'
         }
       ]
     };
@@ -107,11 +107,6 @@ export class RiskCvarChartComponent implements OnInit {
           position: 'left',
           ticks: { color: '#555', callback: (value: number) => `${value?.toFixed?.(0) ?? value}%` },
           grid: { color: 'rgba(0,0,0,0.05)' }
-        },
-        y1: {
-          position: 'right',
-          ticks: { color: '#555' },
-          grid: { drawOnChartArea: false, color: 'rgba(0,0,0,0.05)' }
         },
         x: {
           ticks: { color: '#666', maxRotation: 0, autoSkip: true },

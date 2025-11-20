@@ -1,11 +1,6 @@
 import { Routes } from '@angular/router';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
-import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { RiskComponent } from './pages/risk/risk.component';
-import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 
 export const routes: Routes = [
   {
@@ -13,17 +8,46 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent },
-      { path: 'risk', component: RiskComponent },
-      { path: 'change-password', component: ChangePasswordComponent },
+      {
+        path: 'home',
+        loadComponent: () =>
+          import('./pages/home/home.component').then(m => m.HomeComponent),
+      },
+      {
+        path: 'risk',
+        loadComponent: () =>
+          import('./pages/risk/risk.component').then(m => m.RiskComponent),
+      },
+      {
+        path: 'transactions',
+        loadComponent: () =>
+          import('./pages/transactions/transactions.component').then(
+            m => m.TransactionsComponent
+          ),
+      },
+      {
+        path: 'change-password',
+        loadComponent: () =>
+          import('./pages/change-password/change-password.component').then(
+            m => m.ChangePasswordComponent
+          ),
+      },
     ],
   },
   {
     path: '',
     component: AuthLayoutComponent,
     children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
+      {
+        path: 'login',
+        loadComponent: () =>
+          import('./login/login.component').then(m => m.LoginComponent),
+      },
+      {
+        path: 'register',
+        loadComponent: () =>
+          import('./register/register.component').then(m => m.RegisterComponent),
+      },
     ],
   },
   { path: '**', redirectTo: 'home' },

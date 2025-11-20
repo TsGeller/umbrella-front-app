@@ -1,0 +1,52 @@
+<section class="transactions-card" *ngIf="!loading && !error; else stateTemplate">
+  <header class="transactions-header">
+    <div>
+      <span class="eyebrow">History</span>
+      <h1>Transactions</h1>
+      <p>All recent buy/sell operations on your portfolio.</p>
+    </div>
+  </header>
+
+  <div class="mat-table-wrapper">
+    <table mat-table [dataSource]="dataSource" class="transactions-table mat-elevation-z0">
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let txn">{{ txn.date | date: 'mediumDate' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let txn">{{ txn.type }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="ticker">
+        <th mat-header-cell *matHeaderCellDef>Ticker</th>
+        <td mat-cell *matCellDef="let txn" class="ticker">{{ formatTicker(txn.ticker) }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="shares">
+        <th mat-header-cell *matHeaderCellDef class="text-right">Shares</th>
+        <td mat-cell *matCellDef="let txn" class="text-right">{{ txn.shares ?? '—' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef class="text-right">Amount</th>
+        <td mat-cell *matCellDef="let txn" class="text-right highlight">{{ getAmount(txn) | currency: (txn.currency || 'EUR') }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+          No transactions matching the selected filters.
+        </td>
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 25, 50]" pageSize="10" showFirstLastButtons></mat-paginator>
+  </div>
+</section>
+
+<ng-template #stateTemplate>
+  <div class="transactions-card state" *ngIf="loading">Loading transactions...</div>
+  <div class="transactions-card state state--error" *ngIf="!loading && error">{{ error }}</div>
+</ng-template>

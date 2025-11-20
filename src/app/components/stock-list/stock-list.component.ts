@@ -1,19 +1,19 @@
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DecimalPipe, NgClass, CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { TableModule } from 'primeng/table';
+import { MatTableModule } from '@angular/material/table';
 import { PortfolioService } from '../../services/portfolio';
 import { Stock } from '../../models/stock.model';
 
 @Component({
   selector: 'app-stock-list',
   standalone: true,
-  imports: [TableModule, CurrencyPipe],
+  imports: [CommonModule, MatTableModule, CurrencyPipe, DecimalPipe],
   templateUrl: './stock-list.html',
   styleUrl: './stock-list.scss'
 })
 export class StockList implements OnInit {
   stocks: Stock[] = [];
+  displayedColumns = ['symbol', 'name', 'shares', 'price', 'value', 'allocation'];
   
   constructor(private service: PortfolioService) {}
 
