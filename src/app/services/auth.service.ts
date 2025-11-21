@@ -15,6 +15,11 @@ export class AuthService {
   currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) {
+    // Seed current user from storage on bootstrap to avoid UI flash (e.g., login button showing)
+    const storedUser = localStorage.getItem('username');
+    if (storedUser) {
+      this.currentUserSubject.next(storedUser);
+    }
     // 🔹 Vérifie si une session est déjà active côté backend
     this.checkSession().subscribe();
   }

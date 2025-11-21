@@ -2,18 +2,27 @@ import { Component, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 import { PortfolioService } from '../../services/portfolio';
 import { Stock } from '../../models/stock.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-piechart',
   standalone: true,
-  imports: [ChartModule],
+  imports: [CommonModule, ChartModule],
   templateUrl: './piechart.html',
+  styleUrls: ['./piechart.scss'],
 })
 export class Piechart implements OnInit {
   chartData: any;
   chartOptions: any;
-  heightChart = '300px';
+  heightChart = '240px';
   stocks: Stock[] = [];
+  segments: { label: string; value: number; percent: number; color: string }[] = [];
+  topLabel = '';
+  topPercent = 0;
+  totalValue = 0;
+  hoverLabel = '';
+  hoverValue = 0;
+  hoverPercent = 0;
 
   constructor(private service: PortfolioService) {}
 
@@ -27,61 +36,81 @@ export class Piechart implements OnInit {
   }
 
   initPiechart(): void {
-    const labels = this.stocks.map((s) => s.ticker);
+    const labels = this.stocks.map((s) => s.name || s.ticker);
     const values = this.stocks.map((s) => s.quantity * s.price);
+    const palette = ['#22c55e', '#f97316', '#f59e0b', '#ef4444', '#6366f1', '#0ea5e9', '#8b5cf6'];
+
+    const total = values.reduce((a, b) => a + (b || 0), 0);
+    this.totalValue = total;
+
+    const maxIndex = values.indexOf(Math.max(...values));
+    this.topLabel = labels[maxIndex] || 'Allocation';
+    this.topPercent = total ? (values[maxIndex] / total) * 100 : 0;
+    this.hoverLabel = this.topLabel;
+    this.hoverValue = values[maxIndex] || 0;
+    this.hoverPercent = this.topPercent;
+
+    this.segments = labels.map((label, idx) => {
+      const value = values[idx] || 0;
+      const percent = total ? (value / total) * 100 : 0;
+      const color = palette[idx % palette.length];
+      return { label, value, percent, color };
+    });
 
     this.chartData = {
       labels,
       datasets: [
         {
           data: values,
-          backgroundColor: [
-            'rgba(90,108,255,0.75)',   // Indigo doux
-            'rgba(100,220,220,0.75)',  // Cyan gris
-            'rgba(130,200,255,0.75)',  // Bleu clair
-            'rgba(200,180,255,0.75)',  // Lavande
-            'rgba(255,160,180,0.75)',  // Rose pâle
-            'rgba(255,210,120,0.75)',  // Jaune doux
-            'rgba(160,240,160,0.75)',  // Vert clair
-          ],
-          borderColor: 'rgba(255,255,255,0.7)',
-          borderWidth: 1,
+          backgroundColor: palette,
+          borderColor: '#ffffff',
+          borderWidth: 10,
           hoverOffset: 8,
+          cutout: '70%',
+          borderRadius: 18,
+          spacing: 2,
         },
       ],
     };
 
     this.chartOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: {
-          position: 'right',
-          align: 'center',
-          labels: {
-            color: '#444',
-            font: {
-              family: 'Inter',
-              size: 12,
-              weight: 500,
-            },
-            padding: 10,
-            usePointStyle: true,
-            boxWidth: 10,
-          },
+          display: false,
         },
         tooltip: {
-          backgroundColor: 'rgba(255,255,255,0.95)',
-          titleColor: '#111',
-          bodyColor: '#333',
-          borderColor: 'rgba(0,0,0,0.05)',
-          borderWidth: 1,
-          padding: 8,
-          titleFont: { size: 13, weight: '600' },
-          bodyFont: { size: 12 },
+          enabled: false,
+          external: (context: any) => this.updateHoverFromTooltip(context),
         },
       },
-      layout: {
-        padding: { top: 10, bottom: 10 },
+      animation: {
+        animateRotate: true,
+        animateScale: true,
       },
+      layout: { padding: 10 },
     };
+  }
+
+  private updateHoverFromTooltip(context: any) {
+    const { chart, tooltip } = context;
+    if (tooltip.opacity === 0) {
+      // revert to top allocation when not hovering
+      this.hoverLabel = this.topLabel;
+      this.hoverValue = this.totalValue * (this.topPercent / 100);
+      this.hoverPercent = this.topPercent;
+      return;
+    }
+
+    const dataIndex = tooltip.dataPoints?.[0]?.dataIndex ?? 0;
+    const datasetIndex = tooltip.dataPoints?.[0]?.datasetIndex ?? 0;
+    const label = chart.data.labels[dataIndex] as string;
+    const value = chart.data.datasets[datasetIndex].data[dataIndex] as number;
+    const percent = this.totalValue ? (value / this.totalValue) * 100 : 0;
+
+    this.hoverLabel = label;
+    this.hoverValue = value;
+    this.hoverPercent = percent;
   }
 }

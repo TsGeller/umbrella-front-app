@@ -1,101 +1,84 @@
-<div class="flex flex-wrap gap-6 mt-4">
-
-  <!-- TOTAL VALUE -->
-  <div
-    class="relative flex flex-col justify-between flex-1 min-w-[240px] overflow-hidden
-           rounded-2xl p-3 backdrop-blur-xl text-gray-800
-           bg-white/80 border border-white/60 shadow-[0_4px_12px_rgba(0,0,0,0.08)]
-           hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all duration-300 hover:scale-[1.01]"
-  >
-    <div class="flex items-center justify-between mb-2">
-      <span class="text-xs uppercase tracking-wider text-gray-500 font-medium">
-        Total Value
-      </span>
-      <i class="pi pi-wallet text-gray-600 text-lg"></i>
-    </div>
-
-    <div
-      class="text-2xl font-semibold text-gray-900 tracking-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.1)]"
-    >
-      {{ walletValue | number: '1.0-2' }} €
-    </div>
-
-    <div
-      class="absolute inset-0 pointer-events-none rounded-2xl bg-gradient-to-tr from-white/40 via-transparent to-transparent"
-    ></div>
-  </div>
-
-  <!-- DAILY PNL -->
-  <div
-    class="relative flex flex-col justify-between flex-1 min-w-[240px] overflow-hidden
-           rounded-2xl p-3 backdrop-blur-xl text-gray-800
-           bg-white/80 border border-white/60 shadow-[0_4px_12px_rgba(0,0,0,0.08)]
-           hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all duration-300 hover:scale-[1.01]"
-  >
-    <div class="flex items-center justify-between mb-2">
-      <span class="text-xs uppercase tracking-wider text-gray-500 font-medium">
-        PnL Today
-      </span>
-      <i
-        class="pi"
-        [ngClass]="dailyPnL >= 0 ? 'pi-arrow-up-right text-emerald-500 text-lg' : 'pi-arrow-down-right text-rose-500 text-lg'"
-      ></i>
-    </div>
-
-    <div class="text-2xl font-semibold flex items-baseline gap-1">
-      <span
-        [ngClass]="dailyPnL >= 0 ? 'text-emerald-600' : 'text-rose-600'"
-      >
-        {{ dailyPnL >= 0 ? '+' : '' }}{{ dailyPnL | number: '1.0-2' }} €
-      </span>
-      <span class="text-xs text-gray-500">
-        ({{ pnlPercentage | number: '1.1-1' }}%)
-      </span>
-    </div>
-
-    <div
-      class="absolute inset-0 pointer-events-none rounded-2xl bg-gradient-to-tr from-white/40 via-transparent to-transparent"
-    ></div>
-  </div>
-
-  <!-- USER OWNERSHIP -->
-  <div
-    class="relative flex flex-col justify-between flex-1 min-w-[240px] overflow-hidden
-           rounded-2xl p-3 backdrop-blur-xl text-gray-800
-           bg-white/80 border border-white/60 shadow-[0_4px_12px_rgba(0,0,0,0.08)]
-           hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all duration-300 hover:scale-[1.01]"
-  >
-    <div class="flex items-center justify-between mb-2">
-      <span class="text-xs uppercase tracking-wider text-gray-500 font-medium">
-        Your shares
-      </span>
-      <i class="pi pi-user text-gray-600 text-lg"></i>
-    </div>
-
-    @if (ownershipLoading) {
-      <div class="text-sm text-gray-500">Loading...</div>
-    } @else {
-      @if (userOwnedValue !== null) {
-        <div
-          class="text-2xl font-semibold text-gray-900 tracking-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.1)]"
-        >
-          {{ userOwnedValue | number: '1.0-2' }} €
+<div class="wallet-row">
+  <div class="wallet-card">
+    <div class="card-top">
+      <div class="card-text">
+        <div class="card-name">Total Value</div>
+        <div class="card-meta">
+          <span class="dot"></span>
+          <span class="muted">Portfolio</span>
         </div>
-        @if (userOwnedPercentage !== null) {
-          <div class="text-xs text-gray-500">
-            {{ userOwnedPercentage | number: '1.0-2' }} % of Wallet
-          </div>
-        }
+      </div>
+      <div class="brand-mark">€</div>
+    </div>
+    <div class="card-bottom">
+      <div class="balance">{{ walletValue | number: '1.0-2' }} €</div>
+    </div>
+  </div>
+
+  <div class="wallet-card">
+    <div class="card-top">
+      <div class="card-text">
+        <div class="card-name">PnL Today</div>
+        <div class="card-meta">
+          <span>Session</span>
+          <span class="dot"></span>
+          <span class="muted">Daily change</span>
+        </div>
+      </div>
+      <div class="brand-mark" [ngClass]="dailyPnL >= 0 ? 'positive' : 'negative'">
+        <svg viewBox="0 0 32 32" class="brand-icon" aria-hidden="true">
+          <path
+            d="M4 24l7-8 5 5 8-12"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <circle
+            [attr.cx]="24"
+            [attr.cy]="9"
+            [attr.r]="2"
+            fill="currentColor"
+            opacity="0.9"
+          />
+        </svg>
+      </div>
+    </div>
+    <div class="card-bottom">
+      <div class="balance">
+        <span [ngClass]="dailyPnL >= 0 ? 'positive' : 'negative'">
+          {{ dailyPnL >= 0 ? '+' : '' }}{{ dailyPnL | number: '1.0-2' }} €
+        </span>
+        <span class="muted pct">({{ pnlPercentage | number: '1.1-1' }}%)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wallet-card">
+    <div class="card-top">
+      <div class="card-text">
+        <div class="card-name">Your shares</div>
+        <div class="card-meta">
+          <span class="dot"></span>
+          <span class="muted">Ownership</span>
+        </div>
+      </div>
+      <div class="brand-mark">%</div>
+    </div>
+    <div class="card-bottom">
+      @if (ownershipLoading) {
+        <div class="muted">Loading...</div>
       } @else {
-        <div class="text-sm text-gray-500">
-          {{ ownershipError || 'No positions detected.' }}
-        </div>
+        @if (userOwnedValue !== null) {
+          <div class="balance">{{ userOwnedValue | number: '1.0-2' }} €</div>
+          @if (userOwnedPercentage !== null) {
+            <div class="muted pct">{{ userOwnedPercentage | number: '1.0-2' }} %</div>
+          }
+        } @else {
+          <div class="muted">{{ ownershipError || 'No positions detected.' }}</div>
+        }
       }
-    }
-
-    <div
-      class="absolute inset-0 pointer-events-none rounded-2xl bg-gradient-to-tr from-white/40 via-transparent to-transparent"
-    ></div>
+    </div>
   </div>
-
 </div>

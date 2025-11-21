@@ -8,6 +8,7 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'dashboard', redirectTo: 'home', pathMatch: 'full' },
       {
         path: 'home',
         loadComponent: () =>
@@ -30,6 +31,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/change-password/change-password.component').then(
             m => m.ChangePasswordComponent
+          ),
+      },
+      {
+        path: 'settings',
+        loadComponent: () =>
+          import('./pages/settings/settings.component').then(
+            m => m.SettingsComponent
           ),
       },
     ],

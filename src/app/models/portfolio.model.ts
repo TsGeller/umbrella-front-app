@@ -11,10 +11,13 @@ export class Portfolio {
   setStockComposition(holdings: Stock []) {
     this.stock_composition = holdings;
   }
-  updatePriceOfTicker(ticker: string, newPrice: number): boolean {
+  updatePriceOfTicker(ticker: string, newPrice: number, pnl?: number): boolean {
     const stock = this.stock_composition.find(s => s.ticker === ticker);
     if (stock) {
       stock.price = newPrice;
+      if (typeof pnl === 'number') {
+        stock.pnl = pnl;
+      }
       return true;
     }
     return false;
@@ -24,6 +27,14 @@ export class Portfolio {
   }
   getStcokComposition(): Stock[] {
     return this.stock_composition;
+  }
+  updateNameOfTicker(ticker: string, name: string): boolean {
+    const stock = this.stock_composition.find(s => s.ticker === ticker);
+    if (stock) {
+      stock.name = name;
+      return true;
+    }
+    return false;
   }
   getPortfolioValue(): number {
     return this.portfolio_value;

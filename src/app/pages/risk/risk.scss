@@ -1,25 +1,26 @@
 .risk-page {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
+  max-width: 1120px;
+  margin: 1.25rem auto 0;
+  padding: 0 1rem;
 }
 
 .risk-summary-wrapper {
   padding: 1.5rem;
-  border-radius: 1.75rem;
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.1);
-  backdrop-filter: blur(18px);
+  border-radius: 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
 }
 
 .risk-chart-wrapper {
   padding: 1.5rem;
-  border-radius: 1.75rem;
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.1);
-  backdrop-filter: blur(18px);
+  border-radius: 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
 }
 
 .risk-chart-grid {

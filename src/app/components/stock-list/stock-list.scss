@@ -2,10 +2,9 @@
   position: relative;
   padding: 1.5rem;
   border-radius: 1.75rem;
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
-  backdrop-filter: blur(16px);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
 }
 
 .stock-card__header {
@@ -20,19 +19,19 @@
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.32em;
-  color: rgba(17, 24, 39, 0.55);
+  color: var(--text-muted);
 }
 
 .stock-card__header h2 {
   margin: 0;
   font-size: 1.5rem;
   font-weight: 600;
-  color: rgba(17, 24, 39, 0.9);
+  color: var(--text-primary);
 }
 
 .stock-card__header p {
   margin: 0;
-  color: rgba(17, 24, 39, 0.65);
+  color: var(--text-muted);
   font-size: 0.92rem;
 }
 
@@ -40,6 +39,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+}
+
+.transactions-card {
+  background: #f9fafc;
+  border: 1px solid rgba(15, 23, 42, 0.05);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
 }
 
 .metric {
@@ -55,87 +60,147 @@
   font-size: 0.72rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(17, 24, 39, 0.55);
+  color: var(--text-muted);
 }
 
 .metric__value {
   font-size: 1.1rem;
   font-weight: 600;
-  color: rgba(17, 24, 39, 0.92);
+  color: var(--text-primary);
 }
 
-.mat-table-wrapper {
-  overflow-x: auto;
+.transaction-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
 }
 
-.stock-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 0.5rem;
+.transaction-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 0.4rem;
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: 0.6rem;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.stock-table th {
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(17, 24, 39, 0.55);
-  border-bottom: none;
+.transaction-row:hover {
+  background: var(--surface-weak);
+  transform: translateY(-1px);
 }
 
-.stock-table td {
-  background: rgba(255, 255, 255, 0.7);
-  padding: 0.5rem 0.75rem;
-  border: none;
-  font-size: 0.85rem;
-  color: rgba(17, 24, 39, 0.8);
-}
-
-.stock-table td[mat-footer-cell] {
-  font-size: 0.85rem;
-  font-weight: 600;
-  background: transparent;
-}
-
-.label-footer {
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-size: 0.72rem;
-  color: rgba(17, 24, 39, 0.5);
-}
-
-.stock-table tr {
-  border-radius: 1rem;
-}
-
-.stock-table tr td:first-child {
-  border-top-left-radius: 1rem;
-  border-bottom-left-radius: 1rem;
-}
-
-.stock-table tr td:last-child {
-  border-top-right-radius: 1rem;
-  border-bottom-right-radius: 1rem;
+.row-main {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
 }
 
 .symbol-chip {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.35rem 0.8rem;
-  border-radius: 999px;
-  border: 1px solid rgba(90, 108, 255, 0.35);
-  background: rgba(90, 108, 255, 0.15);
+  padding: 0.38rem 0.78rem;
+  border-radius: 12px;
+  border: 1px solid var(--chip-border);
+  background: var(--chip-bg);
   font-size: 0.75rem;
   font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
 }
 
-.text-right {
-  text-align: right;
+.row-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
 }
 
-.highlight {
-  color: rgba(90, 108, 255, 0.95);
+.row-title {
   font-weight: 600;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.row-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  background: rgba(17, 24, 39, 0.35);
+  border-radius: 50%;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(90, 108, 255, 0.1);
+  border: 1px solid rgba(90, 108, 255, 0.18);
+  color: rgba(47, 62, 147, 0.9);
+  font-weight: 600;
+  font-size: 0.78rem;
+}
+
+.row-value {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+  min-width: 120px;
+}
+
+.value {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.pnl {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.positive {
+  color: #16a34a;
+}
+
+.negative {
+  color: #ef4444;
+}
+
+.see-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(90, 108, 255, 0.25);
+  background: white;
+  color: rgba(46, 55, 148, 0.95);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.see-more:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(90, 108, 255, 0.18);
 }
 
 .empty-state {
@@ -165,23 +230,48 @@
 :host-context(.theme-dark) .stock-card__eyebrow,
 :host-context(.theme-dark) .stock-card__header p,
 :host-context(.theme-dark) .metric__label,
-:host-context(.theme-dark) .stock-table th {
+:host-context(.theme-dark) .row-meta {
   color: rgba(229, 233, 255, 0.65);
 }
 
 :host-context(.theme-dark) .metric,
-:host-context(.theme-dark) .stock-table td {
+:host-context(.theme-dark) .transaction-row {
   background: rgba(25, 32, 56, 0.9);
   border-color: rgba(255, 255, 255, 0.08);
   color: rgba(229, 233, 255, 0.9);
-}
-
-:host-context(.theme-dark) .stock-table td[mat-footer-cell] {
-  background: transparent;
 }
 
 :host-context(.theme-dark) .symbol-chip {
   background: rgba(90, 108, 255, 0.25);
   border-color: rgba(90, 108, 255, 0.45);
   color: #e9edff;
+}
+
+:host-context(.theme-dark) .transactions-card {
+  background: rgba(25, 32, 56, 0.9);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+:host-context(.theme-dark) .transaction-row:hover {
+  background: rgba(37, 47, 77, 0.9);
+}
+:host-context(.theme-dark) .row-title,
+:host-context(.theme-dark) .value {
+  color: rgba(229, 233, 255, 0.95);
+}
+:host-context(.theme-dark) .muted {
+  color: rgba(229, 233, 255, 0.6);
+}
+:host-context(.theme-dark) .see-more {
+  background: rgba(37, 47, 77, 0.9);
+  color: #e9edff;
+  border-color: rgba(90, 108, 255, 0.45);
+}
+
+@media (max-width: 1024px) {
+  .transaction-row {
+    align-items: flex-start;
+  }
+  .row-value {
+    min-width: 100px;
+  }
 }

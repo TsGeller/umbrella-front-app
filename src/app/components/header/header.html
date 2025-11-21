@@ -1,28 +1,41 @@
-<header
-  class="sticky top-0 z-[700] w-full backdrop-blur-2xl bg-transparent border-b border-white/10
-         shadow-[0_4px_20px_rgba(0,0,0,0.02)]"
->
-  <div class="flex items-center justify-between px-10 py-4">
-    <!-- Gauche -->
-    <div class="flex items-center gap-2">
-      <h1 class="text-lg md:text-3xl font-semibold text-gray-800 tracking-wide">
-        Welcome back,
-        <span class="text-black font-bold">{{ username || 'Guest' }}</span>
-      </h1>
+<header class="header-shell">
+  <div class="header-bar">
+    <div class="nav-group">
+      <div class="icon-group">
+        <button class="icon-btn" type="button" aria-label="Home" (click)="goHome()">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4.5a.5.5 0 0 1-.5-.5V15a2 2 0 0 0-2-2h0a2 2 0 0 0-2 2v5.5a.5.5 0 0 1-.5.5H5a1 1 0 0 1-1-1z"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+      <div class="breadcrumb">
+        <span class="muted-link">{{ brandName }}</span>
+        <span class="crumb-sep">›</span>
+        <span class="crumb-current">{{ pageTitle }}</span>
+      </div>
     </div>
 
-    <!-- Droite -->
-    <div class="flex items-center gap-3">
-      @if (!isLoggedIn) {
-        <button
-          (click)="goToLogin()"
-          class="px-5 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-400
-                 text-sm font-medium text-white shadow-md hover:shadow-lg hover:scale-105
-                 active:scale-95 transition-all duration-200"
-        >
-          Login
+    <div class="action-group">
+      <div class="icon-set">
+        <div class="icon-pair">
+          <button class="icon-btn ghost" type="button" aria-label="Réglages" routerLink="/settings">
+            <span class="icon-img settings"></span>
+          </button>
+          <button class="icon-btn ghost" type="button" aria-label="Theme" (click)="toggleTheme()">
+            <span class="icon-img" [ngClass]="isDark ? 'moon' : 'sun'"></span>
+          </button>
+        </div>
+        <button class="icon-btn ghost" type="button" aria-label="Notifications">
+          <span class="icon-img notification"></span>
         </button>
-      }
+      </div>
 
       @if (isLoggedIn) {
         <div class="profile-menu" (click)="$event.stopPropagation()">
@@ -60,7 +73,17 @@
             </div>
           }
         </div>
+      } @else {
+        <button class="login-pill" type="button" (click)="goToLogin()">
+          <i class="pi pi-unlock"></i>
+          <span>Login</span>
+        </button>
       }
+
+      <button class="cta" type="button">
+        <i class="pi pi-share-alt"></i>
+        <span>Share</span>
+      </button>
     </div>
   </div>
 </header>

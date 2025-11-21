@@ -29,6 +29,18 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Si déjà connecté (localStorage ou session encore active), rediriger vers le dashboard
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/dashboard']);
+      return;
+    }
+
+    this.authService.checkSession().subscribe(() => {
+      if (this.authService.isLoggedIn()) {
+        this.router.navigate(['/dashboard']);
+      }
+    });
+
     this.route.queryParamMap.subscribe((params) => {
       if (params.get('registered')) {
         this.infoMessage = 'Compte créé avec succès. Vous pouvez maintenant vous connecter.';

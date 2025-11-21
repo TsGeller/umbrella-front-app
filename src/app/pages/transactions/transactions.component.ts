@@ -1,4 +1,5 @@
 import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -7,7 +8,7 @@ import { TransactionsService, Transaction } from '../../services/transactions.se
 @Component({
   selector: 'app-transactions',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, CurrencyPipe, DatePipe],
+  imports: [CommonModule, MatTableModule, MatPaginatorModule, CurrencyPipe, DatePipe, FormsModule],
   templateUrl: './transactions.html',
   styleUrl: './transactions.scss'
 })
@@ -16,6 +17,8 @@ export class TransactionsComponent implements OnInit {
   dataSource = new MatTableDataSource<Transaction>([]);
   loading = true;
   error: string | null = null;
+  filterType: string = '';
+  filterTicker: string = '';
   @ViewChild(MatPaginator) set paginator(paginator: MatPaginator | undefined) {
     if (paginator) {
       this.dataSource.paginator = paginator;
@@ -36,6 +39,22 @@ export class TransactionsComponent implements OnInit {
         this.error = 'Unable to load transactions right now.';
       }
     });
+  }
+
+  applyFilters(): void {
+    this.dataSource.filterPredicate = (data: Transaction) => {
+      const matchesType = this.filterType ? data.type?.toLowerCase().includes(this.filterType.toLowerCase()) : true;
+      const matchesTicker = this.filterTicker ? (data.ticker || '').toLowerCase().includes(this.filterTicker.toLowerCase()) : true;
+      return matchesType && matchesTicker;
+    };
+    const filterValue = `${this.filterType}|${this.filterTicker}`.trim().toLowerCase();
+    this.dataSource.filter = filterValue;
+  }
+
+  clearFilters(): void {
+    this.filterType = '';
+    this.filterTicker = '';
+    this.applyFilters();
   }
 
   getAmount(transaction: Transaction): number {

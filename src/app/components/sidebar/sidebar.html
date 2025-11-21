@@ -1,86 +1,40 @@
 <aside
-  class="fixed left-3 top-3 bottom-3 w-14 md:w-56 px-2 md:px-5 py-6 flex flex-col justify-between
-         bg-white/10 backdrop-blur-3xl border border-white/20
-         shadow-[0_6px_30px_rgba(0,0,0,0.05)] rounded-3xl select-none z-40 transition-all duration-300"
+  class="sidebar fixed left-3 top-3 bottom-3 w-16 md:w-60 px-3 md:px-5 py-6 flex flex-col justify-between
+         rounded-3xl select-none z-40 transition-all duration-300"
 >
-  <!-- ===== Top Section ===== -->
-  <div>
+  <div class="flex flex-col gap-8">
     <!-- Logo -->
-    <div class="flex justify-center md:justify-center mb-8">
-      <!-- Petit logo pour mobile -->
-      <img
-        src="logo.svg"
-        alt="Umbrella"
-        class="block md:hidden w-6 h-6"
-      />
-      <!-- Texte pour desktop -->
-      <h1
-        class="hidden md:block text-lg font-semibold tracking-wide bg-gradient-to-r from-indigo-500 to-purple-400 bg-clip-text text-transparent select-none"
-      >
-        Umbrella
-      </h1>
+    <div class="flex items-center justify-center md:justify-start gap-3">
+      <div class="logo-dot">U</div>
+      <div class="hidden md:block">
+        <p class="text-[10px] uppercase tracking-[0.28em] text-slate-400">Umbrella</p>
+        <p class="text-base font-semibold text-slate-900">Portfolio</p>
+      </div>
     </div>
 
-    <!-- ===== Navigation ===== -->
-    <nav class="flex flex-col items-center md:items-start gap-4">
-      <!-- Dashboard -->
-      <a
-        routerLink="/home"
-        routerLinkActive="active-link"
-        class="group flex items-center justify-center md:justify-start gap-0 md:gap-3 px-2 py-2 rounded-lg hover:bg-white/20 transition-all duration-200"
-      >
-        <img
-          src="home.svg"
-          alt="Dashboard"
-          class="w-5 h-5 brightness-0 invert opacity-90 group-hover:opacity-100"
-        />
-        <span
-          class="hidden md:inline text-xs font-medium text-gray-700 group-hover:text-indigo-600 transition-colors"
-        >
-          Dashboard
-        </span>
+    <!-- Navigation -->
+    <nav class="flex flex-col gap-2">
+      <a routerLink="/home" routerLinkActive="active-link" class="nav-row">
+        <span class="nav-icon pi pi-home"></span>
+        <span class="nav-label">Dashboard</span>
       </a>
-
-      <!-- Transactions -->
-      <a
-        routerLink="/transactions"
-        routerLinkActive="active-link"
-        class="group flex items-center justify-center md:justify-start gap-0 md:gap-3 px-2 py-2 rounded-lg hover:bg-white/20 transition-all duration-200"
-      >
-        <img
-          src="explore.svg"
-          alt="Transactions"
-          class="w-5 h-5 brightness-0 invert opacity-90 group-hover:opacity-100"
-        />
-        <span
-          class="hidden md:inline text-xs font-medium text-gray-700 group-hover:text-indigo-600 transition-colors"
-        >
-          Transactions
-        </span>
+      <a routerLink="/transactions" routerLinkActive="active-link" class="nav-row">
+        <span class="nav-icon pi pi-wallet"></span>
+        <span class="nav-label">Transactions</span>
       </a>
-
-      <!-- Risk -->
-      <a
-        routerLink="/risk"
-        routerLinkActive="active-link"
-        class="group flex items-center justify-center md:justify-start gap-0 md:gap-3 px-2 py-2 rounded-lg hover:bg-white/20 transition-all duration-200"
-      >
-        <img
-          src="explore.svg"
-          alt="Risk"
-          class="w-5 h-5 brightness-0 invert opacity-90 group-hover:opacity-100"
-        />
-        <span
-          class="hidden md:inline text-xs font-medium text-gray-700 group-hover:text-indigo-600 transition-colors"
-        >
-          Risk
-        </span>
+      <a routerLink="/risk" routerLinkActive="active-link" class="nav-row">
+        <span class="nav-icon pi pi-shield"></span>
+        <span class="nav-label">Risk</span>
       </a>
     </nav>
   </div>
 
-  <!-- ===== Footer ===== -->
-  <footer class="mt-10 text-center text-[10px] text-gray-500 opacity-60 hidden md:block">
-    &copy; 2025 Umbrella Portfolio
-  </footer>
+  <div class="user-card hidden md:flex items-center gap-3" (click)="goToSettings()">
+    <div class="avatar">{{ firstLetter }}</div>
+    <div class="flex-1">
+      <div class="user-name">{{ username || 'Guest' }}</div>
+      <div class="user-role">Settings</div>
+    </div>
+    <span class="pi pi-cog text-slate-500"></span>
+  </div>
 </aside>

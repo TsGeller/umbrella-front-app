@@ -1,35 +1,28 @@
-<div
-  class="relative flex flex-col justify-between rounded-2xl p-6
-         backdrop-blur-xl bg-[rgba(235,235,240,0.7)] border border-white/40
-         shadow-[0_4px_16px_rgba(0,0,0,0.08)]
-         hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)]
-         transition-all duration-300 hover:scale-[1.01] h-[380px]"
->
-  <!-- ===== Titre ===== -->
-  <div class="flex items-center justify-between mb-4">
-    <h2
-      class="text-lg md:text-xl font-semibold tracking-wide
-             bg-gradient-to-r from-indigo-500 to-purple-400 bg-clip-text text-transparent"
-    >
-      Portfolio Allocation
-    </h2>
-    <i class="pi pi-chart-pie text-gray-500 text-xl"></i>
+<div class="allocation-card">
+  <div class="card-header">
+    <div>
+      <p class="eyebrow">Allocation</p>
+      <h3 class="title">Portfolio mix</h3>
+    </div>
+    <span class="badge">Current</span>
   </div>
 
-  <!-- ===== Chart ===== -->
-  <div class="flex-1 flex items-center justify-center">
-    <p-chart
-      type="pie"
-      [data]="chartData"
-      [options]="chartOptions"
-      [height]="heightChart"
-      class="w-full"
-    ></p-chart>
-  </div>
+  <div class="card-body">
+    <div class="chart-wrapper">
+      <p-chart
+        type="doughnut"
+        [data]="chartData"
+        [options]="chartOptions"
+        [height]="heightChart"
+        class="w-full"
+      ></p-chart>
+      <div class="center-label">
+        <div class="center-value">{{ hoverPercent | number:'1.0-1' }}%</div>
+      </div>
+    </div>
 
-  <!-- ===== Lueur décorative subtile ===== -->
-  <div
-    class="absolute inset-0 pointer-events-none rounded-2xl
-           bg-gradient-to-tr from-white/20 via-transparent to-transparent"
-  ></div>
+    <div class="hover-label">
+      <div class="hover-title" title="{{ hoverLabel }}">{{ hoverLabel }}</div>
+      <div class="hover-value">{{ hoverValue | number:'1.0-2' }} € ({{ hoverPercent | number:'1.0-1' }}%)</div>
+    </div>    
 </div>

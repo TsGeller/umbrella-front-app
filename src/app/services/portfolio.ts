@@ -86,12 +86,12 @@ export class PortfolioService {
 
         // transformer les holdings en Stock[]
         const holdings: Stock[] = Object.entries(data).map(
-          ([stockName, quantity]) => ({
-            stockName,
-            name: stockName,
+          ([ticker, quantity]) => ({
+            ticker,
+            name: '',
             quantity: Number(quantity),
-            ticker: stockName,
             price: 0, // par défaut, à mettre à jour si dispo
+            pnl: 0,
           })
         );
 
@@ -104,6 +104,7 @@ export class PortfolioService {
         // Optionnel : charger les prix pour chaque ticker
         holdings.forEach((stock) => {
           this.getPriceForTicker(stock.ticker);
+          this.getCompanyInfo(stock.ticker);
         });
       });
   }
@@ -128,13 +129,32 @@ export class PortfolioService {
           return;
         }
 
-        // Récupérer la dernière donnée (la plus récente)
         const lastEntry = response.data[response.data.length - 1];
-        const newPrice = parseFloat(lastEntry.close_euro);
+        const firstEntry = response.data[0];
+        const newPrice = parseFloat(lastEntry?.close_euro);
+        const basePrice = parseFloat(firstEntry?.close_euro);
+
+        if (isNaN(newPrice)) {
+          console.warn(`Prix invalide pour ${ticker}`);
+          return;
+        }
 
         // Mettre à jour le portfolio centralisé
         const currentPortfolio = this.portfolioSubject.value;
-        const updated = currentPortfolio.updatePriceOfTicker(ticker, newPrice);
+        const currentStock = currentPortfolio
+          .getStcokComposition()
+          .find((s) => s.ticker === ticker);
+        const quantity = currentStock?.quantity ?? 0;
+        const pnlValue =
+          !isNaN(basePrice) && quantity
+            ? (newPrice - basePrice) * quantity
+            : 0;
+
+        const updated = currentPortfolio.updatePriceOfTicker(
+          ticker,
+          newPrice,
+          pnlValue
+        );
 
         if (!updated) {
           console.warn(
@@ -145,6 +165,38 @@ export class PortfolioService {
 
         // Notifier les abonnés uniquement si mise à jour réussie
         this.portfolioSubject.next(currentPortfolio);
+      });
+  }
+  getCompanyInfo(ticker: string): void {
+    this.http
+      .get<any>(
+        `${this.baseUrl}/stock_information/get_company_info/?ticker=${ticker}`
+      )
+      .pipe(
+        catchError((error) => {
+          console.error('Erreur de récupération :', error);
+          return of(null);
+        })
+      )
+      .subscribe((response) => {
+        const companyName =
+          response?.data?.company_name ||
+          response?.data?.name ||
+          response?.company_name ||
+          response?.name;
+
+        if (!companyName) {
+          console.warn(`Nom introuvable pour ${ticker}`);
+          return;
+        }
+
+        const currentPortfolio = this.portfolioSubject.value;
+        const updated =
+          currentPortfolio.updateNameOfTicker(ticker, companyName);
+
+        if (updated) {
+          this.portfolioSubject.next(currentPortfolio);
+        }
       });
   }
   getPriceForTickerSpydde(): Observable<any> {
